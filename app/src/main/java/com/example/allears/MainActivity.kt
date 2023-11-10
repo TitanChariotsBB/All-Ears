@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting()
+                    AllEarsApp()
                 }
             }
         }
@@ -30,17 +30,12 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(modifier: Modifier = Modifier) {
-    Text(
-        text = "All Ears",
-        modifier = modifier
-    )
-}
+fun AllEarsApp() {
+    // TODO: all the navigation stuff
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    AllEarsTheme {
-        Greeting()
-    }
+    HomeScreen(
+        toNoteScreen = { /*TODO*/ },
+        toIntervalScreen = { /*TODO*/ },
+        toChordScreen = { /*TODO*/ }
+    )
 }
