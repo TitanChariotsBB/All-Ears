@@ -1,3 +1,3 @@
-# All-Ears
+# All Ears
 
 Android ear-training app.
