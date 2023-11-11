@@ -26,6 +26,9 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.allears.ui.screens.HomeScreen
 import com.example.allears.ui.screens.NoteScreen
+import com.example.allears.ui.screens.canGoBack
+import com.example.allears.ui.screens.canShowSettings
+import com.example.allears.ui.screens.findSettingsRoute
 import com.example.allears.ui.theme.AllEarsTheme
 
 class MainActivity : ComponentActivity() {
@@ -55,11 +58,11 @@ fun AllEarsApp(modifier: Modifier = Modifier) {
     Scaffold(
         topBar = {
             AllEarsTopBar(
-                canNavigateBack = false,
-                navigateBack = { /*TODO*/ },
-                title = "TODO: topbar logic",
-                canShowSettings = false,
-                goToSettings = { /*TODO*/ }
+                canNavigateBack = canGoBack(currentScreenHandler?.destination?.route),
+                navigateBack = { navController.navigateUp() },
+                title = currentScreenHandler?.destination?.route ?: "All Ears",
+                canShowSettings = canShowSettings(currentScreenHandler?.destination?.route),
+                goToSettings = { findSettingsRoute(currentScreenHandler?.destination?.route) }
             )
         }
     ) { paddingValues ->

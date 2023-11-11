@@ -25,7 +25,7 @@ fun HomeScreen(
 ) {
     // TODO: top bar
     Column(
-        modifier = modifier.fillMaxSize().padding(24.dp),
+        modifier = modifier.fillMaxSize().padding(vertical = 64.dp, horizontal = 24.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
