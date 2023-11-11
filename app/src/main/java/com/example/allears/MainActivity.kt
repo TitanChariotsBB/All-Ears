@@ -24,9 +24,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.allears.ui.screens.AboutScreen
 import com.example.allears.ui.screens.HomeScreen
 import com.example.allears.ui.screens.NoteScreen
+import com.example.allears.ui.screens.NoteSettingsScreen
+import com.example.allears.ui.screens.Screens
 import com.example.allears.ui.screens.canGoBack
+import com.example.allears.ui.screens.canShowAbout
 import com.example.allears.ui.screens.canShowSettings
 import com.example.allears.ui.screens.findSettingsRoute
 import com.example.allears.ui.theme.AllEarsTheme
@@ -62,7 +66,9 @@ fun AllEarsApp(modifier: Modifier = Modifier) {
                 navigateBack = { navController.navigateUp() },
                 title = currentScreenHandler?.destination?.route ?: "All Ears",
                 canShowSettings = canShowSettings(currentScreenHandler?.destination?.route),
-                goToSettings = { findSettingsRoute(currentScreenHandler?.destination?.route) }
+                goToSettings = { navController.navigate(findSettingsRoute(currentScreenHandler?.destination?.route)) },
+                canShowAbout = canShowAbout(currentScreenHandler?.destination?.route),
+                goToAbout = { navController.navigate(Screens.About.route) }
             )
         }
     ) { paddingValues ->
@@ -71,16 +77,27 @@ fun AllEarsApp(modifier: Modifier = Modifier) {
             startDestination = "home_screen",
             modifier = modifier.padding(8.dp)
         ) {
-            composable(route = "home_screen") {
+            composable(route = Screens.Home.route) {
                 HomeScreen(
-                    toNoteScreen = { navController.navigate("note_screen") },
-                    toIntervalScreen = { navController.navigate("interval_screen") },
-                    toChordScreen = { navController.navigate("chord_screen") }
+                    toNoteScreen = { navController.navigate(Screens.Note.route) },
+                    toIntervalScreen = { navController.navigate(Screens.Interval.route) },
+                    toChordScreen = { navController.navigate(Screens.Chord.route) }
                 )
             }
 
-            composable(route = "note_screen") {
-                NoteScreen(onBack = { navController.navigateUp() })
+            composable(route = Screens.About.route) {
+                AboutScreen()
+            }
+
+            composable(route = Screens.Note.route) {
+                NoteScreen(
+                    onBack = { navController.navigateUp() },
+                    toSettings = {navController.navigate(Screens.NoteSettings.route) }
+                )
+            }
+
+            composable(route = Screens.NoteSettings.route) {
+                NoteSettingsScreen()
             }
         }
     }
@@ -94,6 +111,8 @@ fun AllEarsTopBar(
     title: String,
     canShowSettings: Boolean,
     goToSettings: ()->Unit,
+    canShowAbout: Boolean,
+    goToAbout: ()->Unit,
     modifier: Modifier = Modifier
 ) {
     CenterAlignedTopAppBar(
@@ -111,6 +130,13 @@ fun AllEarsTopBar(
                 IconButton(onClick = { goToSettings() }) {
                     Icon(painter = painterResource(id = R.drawable.baseline_settings_24), 
                         contentDescription = "Settings")
+                }
+            }
+
+            if (canShowAbout) {
+                IconButton(onClick = { goToAbout() }) {
+                    Icon(painter = painterResource(id = R.drawable.baseline_info_24),
+                        contentDescription = "About")
                 }
             }
         }

@@ -2,9 +2,13 @@ package com.example.allears.ui.screens
 
 sealed class Screens(val route: String) {
     object Home: Screens("home_screen")
+    object About: Screens("about_screen")
     object Note: Screens("note_screen")
     object Interval: Screens("interval_screen")
     object Chord: Screens("chord_screen")
+    object NoteSettings: Screens("note_settings_screen")
+    object IntervalSettings: Screens("interval_settings_screen")
+    object ChordSettings: Screens("chord_settings_screen")
 }
 
 fun canGoBack(route: String?): Boolean {
@@ -17,6 +21,13 @@ fun canGoBack(route: String?): Boolean {
 fun canShowSettings(route: String?): Boolean {
     if (route != null) {
         if (route == "note_screen" || route == "interval_screen" || route == "chord_screen") return true
+    }
+    return false
+}
+
+fun canShowAbout(route: String?): Boolean {
+    if (route != null) {
+        if (route == "home_screen") return true
     }
     return false
 }

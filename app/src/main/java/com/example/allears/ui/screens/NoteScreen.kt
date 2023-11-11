@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import com.example.allears.R
 
 @Composable
-fun NoteScreen(onBack: ()->Unit, modifier: Modifier = Modifier) {
+fun NoteScreen(onBack: ()->Unit, toSettings: ()->Unit, modifier: Modifier = Modifier) {
     /*
     * TODO:
     * Implement a ViewModel that keeps track of:
@@ -89,5 +89,5 @@ fun AnswerButton(text: String, onClick: ()->Unit, modifier: Modifier = Modifier)
 @Preview
 @Composable
 fun NotePreview() {
-    NoteScreen({})
+    NoteScreen({}, {})
 }
