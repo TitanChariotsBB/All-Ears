@@ -1,14 +1,31 @@
 package com.example.allears
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import com.example.allears.ui.screens.HomeScreen
+import com.example.allears.ui.screens.NoteScreen
 import com.example.allears.ui.theme.AllEarsTheme
 
 class MainActivity : ComponentActivity() {
@@ -28,13 +45,71 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun AllEarsApp() {
-    // TODO: all the navigation stuff
+fun AllEarsApp(modifier: Modifier = Modifier) {
+    val navController = rememberNavController()
+    val currentScreenHandler by navController.currentBackStackEntryAsState()
 
-    HomeScreen(
-        toNoteScreen = { /*TODO*/ },
-        toIntervalScreen = { /*TODO*/ },
-        toChordScreen = { /*TODO*/ }
+    Scaffold(
+        topBar = {
+            AllEarsTopBar(
+                canNavigateBack = false,
+                navigateBack = { /*TODO*/ },
+                title = "TODO: topbar logic",
+                canShowSettings = false,
+                goToSettings = { /*TODO*/ }
+            )
+        }
+    ) { paddingValues ->
+        NavHost(
+            navController = navController,
+            startDestination = "home_screen",
+            modifier = modifier.padding(8.dp)
+        ) {
+            composable(route = "home_screen") {
+                HomeScreen(
+                    toNoteScreen = { navController.navigate("note_screen") },
+                    toIntervalScreen = { navController.navigate("interval_screen") },
+                    toChordScreen = { navController.navigate("chord_screen") }
+                )
+            }
+
+            composable(route = "note_screen") {
+                NoteScreen(onBack = { navController.navigateUp() })
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun AllEarsTopBar(
+    canNavigateBack: Boolean,
+    navigateBack: ()->Unit,
+    title: String,
+    canShowSettings: Boolean,
+    goToSettings: ()->Unit,
+    modifier: Modifier = Modifier
+) {
+    CenterAlignedTopAppBar(
+        title = { Text(text = title) },
+        navigationIcon = {
+            if (canNavigateBack) {
+                IconButton(onClick = { navigateBack() }) {
+                 Icon(painter = painterResource(id = R.drawable.baseline_arrow_back_24), 
+                     contentDescription = "Back") 
+                }
+            }
+        },
+        actions = {
+            if (canShowSettings) {
+                IconButton(onClick = { goToSettings() }) {
+                    Icon(painter = painterResource(id = R.drawable.baseline_settings_24), 
+                        contentDescription = "Settings")
+                }
+            }
+        }
     )
 }
