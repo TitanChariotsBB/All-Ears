@@ -23,7 +23,6 @@ fun HomeScreen(
     toNoteScreen: ()->Unit, toIntervalScreen: ()->Unit,
     toChordScreen: ()->Unit, modifier: Modifier = Modifier
 ) {
-    // TODO: top bar
     Column(
         modifier = modifier.fillMaxSize().padding(vertical = 64.dp, horizontal = 24.dp),
         verticalArrangement = Arrangement.Top,
