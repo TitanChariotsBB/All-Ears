@@ -78,8 +78,7 @@ fun AnswerButton(text: String, onClick: ()->Unit, modifier: Modifier = Modifier)
     OutlinedButton(
         onClick = { onClick },
         modifier = modifier
-            .padding(8.dp)
-            .size(64.dp),
+            .padding(8.dp),
         shape = RoundedCornerShape(16.dp)
     ) {
         Text(text = text)

@@ -38,13 +38,12 @@ fun IntervalScreen(modifier: Modifier = Modifier) {
             )
         }
         Column {
-            AnswerButton(text = "C", onClick = { /*TODO*/ })
-            AnswerButton(text = "D", onClick = { /*TODO*/ })
-            AnswerButton(text = "E", onClick = { /*TODO*/ })
-            AnswerButton(text = "F", onClick = { /*TODO*/ })
-            AnswerButton(text = "G", onClick = { /*TODO*/ })
-            AnswerButton(text = "A", onClick = { /*TODO*/ })
-            AnswerButton(text = "B", onClick = { /*TODO*/ })
+            AnswerButton(text = "min 2", onClick = { /*TODO*/ })
+            AnswerButton(text = "maj 2", onClick = { /*TODO*/ })
+            AnswerButton(text = "min 3", onClick = { /*TODO*/ })
+            AnswerButton(text = "maj 3", onClick = { /*TODO*/ })
+            AnswerButton(text = "perf 4", onClick = { /*TODO*/ })
+            AnswerButton(text = "aug 4", onClick = { /*TODO*/ })
         }
     }
 }

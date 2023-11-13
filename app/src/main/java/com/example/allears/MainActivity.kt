@@ -26,6 +26,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.allears.ui.screens.AboutScreen
 import com.example.allears.ui.screens.HomeScreen
+import com.example.allears.ui.screens.IntervalScreen
 import com.example.allears.ui.screens.NoteScreen
 import com.example.allears.ui.screens.NoteSettingsScreen
 import com.example.allears.ui.screens.Screens
@@ -94,6 +95,10 @@ fun AllEarsApp(modifier: Modifier = Modifier) {
                     onBack = { navController.navigateUp() },
                     toSettings = {navController.navigate(Screens.NoteSettings.route) }
                 )
+            }
+
+            composable(route = Screens.Interval.route) {
+                IntervalScreen()
             }
 
             composable(route = Screens.NoteSettings.route) {
