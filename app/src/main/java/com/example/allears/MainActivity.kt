@@ -91,10 +91,7 @@ fun AllEarsApp(modifier: Modifier = Modifier) {
             }
 
             composable(route = Screens.Note.route) {
-                NoteScreen(
-                    onBack = { navController.navigateUp() },
-                    toSettings = {navController.navigate(Screens.NoteSettings.route) }
-                )
+                NoteScreen()
             }
 
             composable(route = Screens.Interval.route) {
