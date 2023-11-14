@@ -41,7 +41,6 @@ fun NoteScreen(VM : NoteVM, modifier: Modifier = Modifier) {
     val uiState by VM.noteUIState.collectAsState()
     var currentNote by rememberSaveable{mutableStateOf('H')}
     var hasNote by rememberSaveable{mutableStateOf(false)}
-    var score by rememberSaveable{mutableStateOf(0)}
     val context = LocalContext.current
 
     /*
@@ -113,7 +112,7 @@ fun AnswerButton(text: String, onClick: ()->Unit, modifier: Modifier = Modifier)
 }
 
 fun playNotes(context : Context, currentNote : Char){
-    val converter : NoteConverter = NoteConverter()
+    val converter = NoteConverter()
     val fileName = currentNote.toString().lowercase() + "5";
     val mediaPlayer = MediaPlayer.create(context, converter.converterMap.get(fileName)!!)
     mediaPlayer.start()
