@@ -14,6 +14,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -23,9 +25,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.allears.R
+import com.example.allears.ui.models.NoteVM
 
 @Composable
-fun NoteScreen(modifier: Modifier = Modifier) {
+fun NoteScreen(VM : NoteVM, modifier: Modifier = Modifier) {
+    val uiState by VM.noteUIState.collectAsState()
+
     /*
     * TODO:
     * Implement a ViewModel that keeps track of:
@@ -62,13 +67,17 @@ fun NoteScreen(modifier: Modifier = Modifier) {
             )
         }
         Column {
-            AnswerButton(text = "C", onClick = { /*TODO*/ })
-            AnswerButton(text = "D", onClick = { /*TODO*/ })
-            AnswerButton(text = "E", onClick = { /*TODO*/ })
-            AnswerButton(text = "F", onClick = { /*TODO*/ })
-            AnswerButton(text = "G", onClick = { /*TODO*/ })
-            AnswerButton(text = "A", onClick = { /*TODO*/ })
-            AnswerButton(text = "B", onClick = { /*TODO*/ })
+            ShowAnswerButtons(VM)
+        }
+    }
+}
+
+@Composable
+fun ShowAnswerButtons(VM : NoteVM){
+    val uiState by VM.noteUIState.collectAsState()
+    uiState.notes.forEach{
+        if(uiState.noteMap.get(it) == true) {
+            AnswerButton(text = it.toString(), onClick = {/*TODO*/ })
         }
     }
 }
@@ -85,8 +94,8 @@ fun AnswerButton(text: String, onClick: ()->Unit, modifier: Modifier = Modifier)
     }
 }
 
-@Preview
-@Composable
-fun NotePreview() {
-    NoteScreen()
-}
+//@Preview
+//@Composable
+//fun NotePreview() {
+//    NoteScreen()
+//}
