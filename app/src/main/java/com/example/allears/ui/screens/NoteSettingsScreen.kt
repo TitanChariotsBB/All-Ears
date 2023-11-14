@@ -21,8 +21,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.allears.ui.models.NoteVM
 
 @Composable
-fun NoteSettingsScreen(modifier: Modifier = Modifier) {
-    val VM : NoteVM = viewModel()
+fun NoteSettingsScreen(VM : NoteVM, modifier: Modifier = Modifier) {
     val uiState by VM.noteUIState.collectAsState()
     val notes = arrayOf('A', 'B', 'C', 'D', 'E', 'F', 'G')
     Column(
@@ -51,8 +50,8 @@ fun NoteButton(VM : NoteVM, note : Char, modifier: Modifier = Modifier) {
     }
 }
 
-@Preview
-@Composable
-fun NoteSettingsPreview() {
-    NoteSettingsScreen()
-}
+//@Preview
+//@Composable
+//fun NoteSettingsPreview() {
+//    NoteSettingsScreen()
+//}

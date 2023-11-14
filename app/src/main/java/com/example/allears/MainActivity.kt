@@ -103,7 +103,7 @@ fun AllEarsApp(modifier: Modifier = Modifier) {
             }
 
             composable(route = Screens.NoteSettings.route) {
-                NoteSettingsScreen()
+                NoteSettingsScreen(noteVM)
             }
         }
     }
