@@ -12,6 +12,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -83,16 +86,25 @@ fun NoteScreen(VM : NoteVM, modifier: Modifier = Modifier) {
                 modifier = modifier.size(128.dp)
             )
         }
-        Column {
-            uiState.notes.forEach{
-                if(uiState.noteMap.get(it) == true) {
-                    AnswerButton(text = it.toString(), onClick = {
-                        if(it == currentNote && hasNote) {
+        OutlinedButton(
+            onClick = {
+                 playNotes(context, 'C')
+            },
+            modifier = modifier.padding(32.dp).size(172.dp, 86.dp),
+            shape = RoundedCornerShape(32.dp)){
+                Text("Play Reference (C)")
+            }
+
+        LazyVerticalGrid(columns = GridCells.Fixed(3)) {
+            val buttonList = uiState.notes.filter {uiState.noteMap.get(it) == true}
+            items(buttonList){note ->
+                AnswerButton(text = note.toString(),
+                    onClick = {
+                        if(note == currentNote && hasNote){
                             VM.scoreChanged(uiState.score + 1)
-                            hasNote = false
                         }
+                        hasNote = false
                     })
-                }
             }
         }
     }
@@ -110,7 +122,6 @@ fun AnswerButton(text: String, onClick: ()->Unit, modifier: Modifier = Modifier)
         Text(text = text)
     }
 }
-
 fun playNotes(context : Context, currentNote : Char){
     val converter = NoteConverter()
     val fileName = currentNote.toString().lowercase() + "5";
