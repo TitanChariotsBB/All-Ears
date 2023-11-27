@@ -6,6 +6,7 @@ import android.graphics.drawable.shapes.Shape
 import android.media.MediaPlayer
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,6 +17,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,6 +30,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.platform.LocalContext
@@ -75,12 +78,12 @@ fun NoteScreen(VM : NoteVM, modifier: Modifier = Modifier) {
                 currentNote = enabledNotes[Random.nextInt(0, enabledNotes.size)]
                 if(!hasNote) hasNote = true
                 playNotes(context, currentNote) },
+            shape = RoundedCornerShape(32.dp),
             modifier = modifier
                 .padding(32.dp)
                 .size(172.dp),
-            shape = RoundedCornerShape(32.dp)
         ) {
-            Image(
+            Icon(
                 painter = painterResource(id = R.drawable.baseline_volume_up_24),
                 contentDescription = null,
                 modifier = modifier.size(128.dp)
