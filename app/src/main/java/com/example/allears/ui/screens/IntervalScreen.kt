@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,7 +32,7 @@ fun IntervalScreen(modifier: Modifier = Modifier) {
                 .size(172.dp),
             shape = RoundedCornerShape(32.dp)
         ) {
-            Image(
+            Icon(
                 painter = painterResource(id = R.drawable.baseline_volume_up_24),
                 contentDescription = null,
                 modifier = modifier.size(128.dp)
