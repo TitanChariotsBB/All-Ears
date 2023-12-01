@@ -17,6 +17,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -115,12 +116,13 @@ fun NoteScreen(VM : NoteVM, modifier: Modifier = Modifier) {
 
 
 @Composable
-fun AnswerButton(text: String, onClick: ()->Unit, modifier: Modifier = Modifier) {
-    OutlinedButton(
+fun AnswerButton(text: String, onClick: ()->Unit, modifier: Modifier = Modifier, enabled: Boolean = true) {
+    Button(
         onClick = { onClick() },
         modifier = modifier
             .padding(8.dp),
-        shape = RoundedCornerShape(16.dp)
+        shape = RoundedCornerShape(16.dp),
+        enabled = enabled
     ) {
         Text(text = text)
     }

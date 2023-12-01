@@ -15,21 +15,25 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.core.view.WindowCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.allears.ui.models.IntervalVM
 import com.example.allears.ui.models.NoteVM
 import com.example.allears.ui.screens.AboutScreen
 import com.example.allears.ui.screens.HomeScreen
 import com.example.allears.ui.screens.IntervalScreen
+import com.example.allears.ui.screens.IntervalSettingsScreen
 import com.example.allears.ui.screens.NoteScreen
 import com.example.allears.ui.screens.NoteSettingsScreen
 import com.example.allears.ui.screens.Screens
@@ -42,6 +46,7 @@ import com.example.allears.ui.theme.AllEarsTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, true)
         setContent {
             AllEarsTheme {
                 // A surface container using the 'background' color from the theme
@@ -62,7 +67,8 @@ class MainActivity : ComponentActivity() {
 fun AllEarsApp(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
     val currentScreenHandler by navController.currentBackStackEntryAsState()
-    val noteVM : NoteVM = viewModel()
+    val noteVM: NoteVM = viewModel()
+    val intervalVM: IntervalVM = viewModel()
 
     Scaffold(
         topBar = {
@@ -99,11 +105,15 @@ fun AllEarsApp(modifier: Modifier = Modifier) {
             }
 
             composable(route = Screens.Interval.route) {
-                IntervalScreen()
+                IntervalScreen(intervalVM)
             }
 
             composable(route = Screens.NoteSettings.route) {
                 NoteSettingsScreen(noteVM)
+            }
+
+            composable(route = Screens.IntervalSettings.route) {
+                IntervalSettingsScreen(intervalVM)
             }
         }
     }
@@ -122,6 +132,10 @@ fun AllEarsTopBar(
     modifier: Modifier = Modifier
 ) {
     CenterAlignedTopAppBar(
+        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
+            titleContentColor = MaterialTheme.colorScheme.onBackground,
+        ),
         title = { Text(text = title) },
         navigationIcon = {
             if (canNavigateBack) {

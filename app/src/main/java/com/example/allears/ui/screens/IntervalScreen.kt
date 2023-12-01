@@ -5,6 +5,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
@@ -16,9 +19,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.allears.R
+import com.example.allears.ui.models.IntervalVM
 
 @Composable
-fun IntervalScreen(modifier: Modifier = Modifier) {
+fun IntervalScreen(VM: IntervalVM, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -38,19 +42,18 @@ fun IntervalScreen(modifier: Modifier = Modifier) {
                 modifier = modifier.size(128.dp)
             )
         }
-        Column {
-            AnswerButton(text = "min 2", onClick = { /*TODO*/ })
-            AnswerButton(text = "maj 2", onClick = { /*TODO*/ })
-            AnswerButton(text = "min 3", onClick = { /*TODO*/ })
-            AnswerButton(text = "maj 3", onClick = { /*TODO*/ })
-            AnswerButton(text = "perf 4", onClick = { /*TODO*/ })
-            AnswerButton(text = "aug 4", onClick = { /*TODO*/ })
+
+        LazyVerticalGrid(columns = GridCells.Fixed(2)) {
+            val intervalsEnabledList = VM.intervalsEnabled.toList()
+            items(intervalsEnabledList) {
+                AnswerButton(text = it.first, onClick = { /*TODO*/ }, enabled = it.second)
+            }
         }
     }
 }
 
-@Preview
-@Composable
-fun IntervalPreview() {
-    IntervalScreen()
-}
+//@Preview
+//@Composable
+//fun IntervalPreview() {
+//    IntervalScreen()
+//}
