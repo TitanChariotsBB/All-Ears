@@ -1,4 +1,4 @@
-package com.example.allears.ui.models
+package com.example.allears.models
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

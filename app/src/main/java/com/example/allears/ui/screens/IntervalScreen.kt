@@ -1,5 +1,9 @@
 package com.example.allears.ui.screens
 
+import android.content.Context
+import android.content.res.Resources
+import android.media.MediaPlayer
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,18 +23,20 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.allears.R
-import com.example.allears.ui.models.IntervalVM
+import com.example.allears.models.IntervalVM
 
 @Composable
-fun IntervalScreen(VM: IntervalVM, modifier: Modifier = Modifier) {
+fun IntervalScreen(VM: IntervalVM, context: Context, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
             .padding(vertical = 64.dp, horizontal = 32.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Text(text = VM.correctAnswer)
+        Text(text = VM.getRoundStats())
         OutlinedButton(
-            onClick = { /*TODO*/ },
+            onClick = { playInterval(VM.correctAnswer, VM.number, context) },
             modifier = modifier
                 .padding(32.dp)
                 .size(172.dp),
@@ -46,10 +52,39 @@ fun IntervalScreen(VM: IntervalVM, modifier: Modifier = Modifier) {
         LazyVerticalGrid(columns = GridCells.Fixed(2)) {
             val intervalsEnabledList = VM.intervalsEnabled.toList()
             items(intervalsEnabledList) {
-                AnswerButton(text = it.first, onClick = { /*TODO*/ }, enabled = it.second)
+                AnswerButton(
+                    text = it.first,
+                    onClick = {
+                        showFeedbackToast(
+                            correct = VM.onAnswerAttempt(it.first),
+                            context = context
+                        )
+                    },
+                    enabled = it.second)
             }
         }
     }
+}
+
+fun showFeedbackToast(correct: Boolean, context: Context) {
+    val text = if (correct) "Correct!" else "Incorrect."
+    val duration = Toast.LENGTH_SHORT
+    val toast = Toast.makeText(context, text, duration)
+    toast.show()
+}
+
+fun Context.resIdByName(resIdName: String?, resType: String): Int {
+    resIdName?.let {
+        return resources.getIdentifier(it, resType, packageName)
+    }
+    throw Resources.NotFoundException()
+}
+
+fun playInterval(name: String, number: Int, context: Context) {
+    val fileName = name.replace(" ", "") + "_" + number
+    val resourceId = context.resIdByName(fileName, "raw")
+    val mediaPlayer = MediaPlayer.create(context, resourceId)
+    mediaPlayer.start()
 }
 
 //@Preview

@@ -39,7 +39,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.allears.R
-import com.example.allears.ui.models.NoteVM
+import com.example.allears.models.NoteVM
 import com.example.allears.ui.theme.NoteConverter
 import kotlin.random.Random
 

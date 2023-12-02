@@ -18,7 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.allears.ui.models.NoteVM
+import com.example.allears.models.NoteVM
 
 @Composable
 fun NoteSettingsScreen(VM : NoteVM, modifier: Modifier = Modifier) {

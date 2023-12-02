@@ -1,7 +1,9 @@
 package com.example.allears
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
+import android.provider.ContactsContract.Data
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
@@ -28,8 +31,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.allears.ui.models.IntervalVM
-import com.example.allears.ui.models.NoteVM
+import com.example.allears.models.IntervalVM
+import com.example.allears.models.NoteVM
 import com.example.allears.ui.screens.AboutScreen
 import com.example.allears.ui.screens.HomeScreen
 import com.example.allears.ui.screens.IntervalScreen
@@ -54,7 +57,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    AllEarsApp()
+                    AllEarsApp(LocalContext.current)
                 }
             }
         }
@@ -64,7 +67,7 @@ class MainActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun AllEarsApp(modifier: Modifier = Modifier) {
+fun AllEarsApp(context: Context, modifier: Modifier = Modifier) {
     val navController = rememberNavController()
     val currentScreenHandler by navController.currentBackStackEntryAsState()
     val noteVM: NoteVM = viewModel()
@@ -105,7 +108,7 @@ fun AllEarsApp(modifier: Modifier = Modifier) {
             }
 
             composable(route = Screens.Interval.route) {
-                IntervalScreen(intervalVM)
+                IntervalScreen(intervalVM, context)
             }
 
             composable(route = Screens.NoteSettings.route) {
