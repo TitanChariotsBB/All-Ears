@@ -33,6 +33,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.allears.models.IntervalVM
 import com.example.allears.models.NoteVM
+import com.example.allears.models.SolfegeVM
 import com.example.allears.ui.screens.AboutScreen
 import com.example.allears.ui.screens.HomeScreen
 import com.example.allears.ui.screens.IntervalScreen
@@ -40,10 +41,13 @@ import com.example.allears.ui.screens.IntervalSettingsScreen
 import com.example.allears.ui.screens.NoteScreen
 import com.example.allears.ui.screens.NoteSettingsScreen
 import com.example.allears.ui.screens.Screens
+import com.example.allears.ui.screens.SettingsScreen
+import com.example.allears.ui.screens.SolfegeScreen
 import com.example.allears.ui.screens.canGoBack
 import com.example.allears.ui.screens.canShowAbout
 import com.example.allears.ui.screens.canShowSettings
 import com.example.allears.ui.screens.findSettingsRoute
+import com.example.allears.ui.screens.getPrettyTitle
 import com.example.allears.ui.theme.AllEarsTheme
 
 class MainActivity : ComponentActivity() {
@@ -71,6 +75,7 @@ fun AllEarsApp(context: Context, modifier: Modifier = Modifier) {
     val navController = rememberNavController()
     val currentScreenHandler by navController.currentBackStackEntryAsState()
     val noteVM: NoteVM = viewModel()
+    val solfegeVM: SolfegeVM = viewModel()
     val intervalVM: IntervalVM = viewModel()
 
     Scaffold(
@@ -78,7 +83,7 @@ fun AllEarsApp(context: Context, modifier: Modifier = Modifier) {
             AllEarsTopBar(
                 canNavigateBack = canGoBack(currentScreenHandler?.destination?.route),
                 navigateBack = { navController.navigateUp() },
-                title = currentScreenHandler?.destination?.route ?: "All Ears",
+                title = getPrettyTitle(currentScreenHandler?.destination?.route),
                 canShowSettings = canShowSettings(currentScreenHandler?.destination?.route),
                 goToSettings = { navController.navigate(findSettingsRoute(currentScreenHandler?.destination?.route)) },
                 canShowAbout = canShowAbout(currentScreenHandler?.destination?.route),
@@ -94,6 +99,7 @@ fun AllEarsApp(context: Context, modifier: Modifier = Modifier) {
             composable(route = Screens.Home.route) {
                 HomeScreen(
                     toNoteScreen = { navController.navigate(Screens.Note.route) },
+                    toSolfegeScreen = { navController.navigate(Screens.Solfege.route) },
                     toIntervalScreen = { navController.navigate(Screens.Interval.route) },
                     toChordScreen = { navController.navigate(Screens.Chord.route) }
                 )
@@ -107,6 +113,10 @@ fun AllEarsApp(context: Context, modifier: Modifier = Modifier) {
                 NoteScreen(noteVM)
             }
 
+            composable(route = Screens.Solfege.route) {
+                SolfegeScreen(solfegeVM, context)
+            }
+
             composable(route = Screens.Interval.route) {
                 IntervalScreen(intervalVM, context)
             }
@@ -115,8 +125,20 @@ fun AllEarsApp(context: Context, modifier: Modifier = Modifier) {
                 NoteSettingsScreen(noteVM)
             }
 
+            composable(route = Screens.SolfegeSettings.route) {
+                // SolfegeSettingsScreen(solfegeVM)
+                SettingsScreen(
+                    options = solfegeVM.solfegeEnabled,
+                    update = { solfegeVM.updateEnabledSolfege(it) }
+                )
+            }
+
             composable(route = Screens.IntervalSettings.route) {
-                IntervalSettingsScreen(intervalVM)
+                // IntervalSettingsScreen(intervalVM)
+                SettingsScreen(
+                    options = intervalVM.intervalsEnabled,
+                    update = { intervalVM.updateEnabledInterval(it) }
+                )
             }
         }
     }

@@ -7,45 +7,41 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.allears.models.IntervalVM
+import com.example.allears.models.SolfegeVM
 
-/*
----------------------------------------------------------------------------------------
-
-Note: this composable is no longer in use. Use SettingsScreen instead
-
----------------------------------------------------------------------------------------
-*/
 @Composable
-fun IntervalSettingsScreen(VM: IntervalVM, modifier: Modifier = Modifier) {
+fun SettingsScreen(options: MutableMap<String, Boolean>, update: (option: String)->Unit, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
             .padding(vertical = 64.dp, horizontal = 24.dp)
     ) {
-        Text(text = "Settings", fontSize = 36.sp, fontWeight = FontWeight.Bold)
-        Text(text = "(Interval Mode)", fontSize = 18.sp)
-        for (pair in VM.intervalsEnabled) {
-            IntervalCheckBox(
+        Text(
+            text = "Settings",
+            fontSize = 36.sp,
+            fontWeight = FontWeight.Bold,
+            modifier = modifier.padding(bottom = 16.dp)
+        )
+
+        for (pair in options) {
+            OptionCheckBox(
                 text = pair.key,
                 isChecked = pair.value,
-                onChange = { VM.updateEnabledInterval(pair.key) }
+                onChange = { update(pair.key) }
             )
         }
     }
 }
 
 @Composable
-fun IntervalCheckBox(text: String, isChecked: Boolean, onChange: ()->Unit, modifier: Modifier = Modifier) {
+fun OptionCheckBox(text: String, isChecked: Boolean, onChange: ()->Unit, modifier: Modifier = Modifier) {
     val checkedState = rememberSaveable{
         mutableStateOf(isChecked)
     }

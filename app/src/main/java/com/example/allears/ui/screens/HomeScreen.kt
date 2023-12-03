@@ -20,7 +20,7 @@ import com.example.allears.ui.theme.AllEarsTheme
 
 @Composable
 fun HomeScreen(
-    toNoteScreen: ()->Unit, toIntervalScreen: ()->Unit,
+    toNoteScreen: ()->Unit, toSolfegeScreen: ()->Unit, toIntervalScreen: ()->Unit,
     toChordScreen: ()->Unit, modifier: Modifier = Modifier
 ) {
     Column(
@@ -32,6 +32,11 @@ fun HomeScreen(
             title = "Single Note",
             description = "Practice identifying notes or scale degrees in the context of a key",
             onClick = { toNoteScreen() }
+        )
+        ModeCard(
+            title = "Solfege",
+            description = "Practice identifying scale degrees (using solfege syllables) in the context of a key",
+            onClick = { toSolfegeScreen() }
         )
         ModeCard(
             title = "Interval",
@@ -70,6 +75,6 @@ fun ModeCard(title: String, description: String, onClick: ()->Unit, modifier: Mo
 @Composable
 fun HomePreview() {
     AllEarsTheme {
-        HomeScreen({}, {}, {})
+        HomeScreen({}, {}, {}, {})
     }
 }

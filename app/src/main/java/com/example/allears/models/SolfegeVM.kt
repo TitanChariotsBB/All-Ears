@@ -6,25 +6,20 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import java.lang.Math.round
 
-class IntervalVM: ViewModel() {
-    val listOfIntervals = listOf<String>("min 2", "maj 2", "min 3", "maj 3", "perf 4", "tritone", "perf 5", "min 6", "maj 6", "min 7", "maj 7", "octave")
+class SolfegeVM: ViewModel() {
+    val listOfSolfege = listOf<String>("do_", "re", "mi", "fa", "sol", "la", "ti")
 
     var numRoundsCompleted by mutableStateOf(0)
     var numAttemptsAtCurrentQuestion by mutableStateOf(0)
     var score by mutableStateOf(0)
     var correctAnswer by mutableStateOf("")
-    // number refers to the range of the interval (1-25)
-    var number by mutableStateOf(1)
-    var intervalsEnabled by mutableStateOf(mutableMapOf<String, Boolean>())
+
+    var solfegeEnabled by mutableStateOf(mutableMapOf<String, Boolean>())
 
     init {
         // Default to major and perfect intervals
-        for (interval in listOfIntervals) {
-            if (interval.startsWith("maj") || interval.startsWith("perf")) {
-                intervalsEnabled.put(interval, true)
-            } else {
-                intervalsEnabled.put(interval, false)
-            }
+        for (solfege in listOfSolfege) {
+            solfegeEnabled.put(solfege, true)
         }
         generateNewCorrectAnswer()
     }
@@ -38,21 +33,20 @@ class IntervalVM: ViewModel() {
         generateNewCorrectAnswer()
     }
 
-    fun updateEnabledInterval(name: String) {
+    fun updateEnabledSolfege(name: String) {
         // flip the boolean for the requested interval name
-        intervalsEnabled.set(name, !intervalsEnabled[name]!!)
+        solfegeEnabled.set(name, !solfegeEnabled[name]!!)
         generateNewCorrectAnswer()
     }
 
     fun generateNewCorrectAnswer() {
         // get an interval from the list of enabled intervals
-        correctAnswer = intervalsEnabled.filter{it.value}.toList().random().first
-        number = (1..25).random()
+        correctAnswer = solfegeEnabled.filter{it.value}.toList().random().first
     }
 
     // Function returns true if attempt is correct, false if not
-    fun onAnswerAttempt(interval: String): Boolean {
-        if (interval == correctAnswer) {
+    fun onAnswerAttempt(solfege: String): Boolean {
+        if (solfege == correctAnswer) {
             startNewRound()
             return true
         } else {
