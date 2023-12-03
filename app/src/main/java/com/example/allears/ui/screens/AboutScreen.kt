@@ -23,7 +23,7 @@ import com.example.allears.R
 @Composable
 fun AboutScreen(modifier: Modifier = Modifier) {
     Column(modifier = modifier.fillMaxSize()
-        .padding(vertical = 64.dp, horizontal = 24.dp)) {
+        .padding(vertical = 84.dp, horizontal = 24.dp)) {
         Text(
             text = "About the app",
             fontSize = 32.sp,

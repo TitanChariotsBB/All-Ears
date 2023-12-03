@@ -160,8 +160,8 @@ fun AllEarsTopBar(
 ) {
     CenterAlignedTopAppBar(
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-            containerColor = MaterialTheme.colorScheme.onPrimaryContainer,
-            titleContentColor = MaterialTheme.colorScheme.background,
+            containerColor = MaterialTheme.colorScheme.surfaceVariant,
+            titleContentColor = MaterialTheme.colorScheme.primary,
         ),
         title = { Text(text = title) },
         navigationIcon = {
@@ -169,8 +169,7 @@ fun AllEarsTopBar(
                 IconButton(
                     onClick = { navigateBack() },
                     colors = IconButtonDefaults.iconButtonColors(
-                        containerColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                        contentColor = MaterialTheme.colorScheme.background,
+                        contentColor = MaterialTheme.colorScheme.primary,
                     )
                 ) {
                     Icon(painter = painterResource(id = R.drawable.baseline_arrow_back_24),
@@ -183,8 +182,7 @@ fun AllEarsTopBar(
                 IconButton(
                     onClick = { goToSettings() },
                     colors = IconButtonDefaults.iconButtonColors(
-                        containerColor = MaterialTheme.colorScheme.onSecondaryContainer,
-                        contentColor = MaterialTheme.colorScheme.background,
+                        contentColor = MaterialTheme.colorScheme.primary,
                     )
                 ) {
                     Icon(painter = painterResource(id = R.drawable.baseline_settings_24), 
@@ -196,8 +194,7 @@ fun AllEarsTopBar(
                 IconButton(
                     onClick = { goToAbout() },
                     colors = IconButtonDefaults.iconButtonColors(
-                        containerColor = MaterialTheme.colorScheme.onSecondaryContainer,
-                        contentColor = MaterialTheme.colorScheme.background,
+                        contentColor = MaterialTheme.colorScheme.primary,
                     )
                 ) {
                     Icon(painter = painterResource(id = R.drawable.baseline_info_24),

@@ -24,7 +24,7 @@ fun HomeScreen(
     toChordScreen: ()->Unit, modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier.fillMaxSize().padding(vertical = 78.dp, horizontal = 18.dp),
+        modifier = modifier.fillMaxSize().padding(vertical = 84.dp, horizontal = 18.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
