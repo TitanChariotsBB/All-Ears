@@ -12,6 +12,8 @@ import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonColors
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -158,28 +160,46 @@ fun AllEarsTopBar(
 ) {
     CenterAlignedTopAppBar(
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
-            titleContentColor = MaterialTheme.colorScheme.onBackground,
+            containerColor = MaterialTheme.colorScheme.onPrimaryContainer,
+            titleContentColor = MaterialTheme.colorScheme.background,
         ),
         title = { Text(text = title) },
         navigationIcon = {
             if (canNavigateBack) {
-                IconButton(onClick = { navigateBack() }) {
-                 Icon(painter = painterResource(id = R.drawable.baseline_arrow_back_24), 
-                     contentDescription = "Back") 
+                IconButton(
+                    onClick = { navigateBack() },
+                    colors = IconButtonDefaults.iconButtonColors(
+                        containerColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                        contentColor = MaterialTheme.colorScheme.background,
+                    )
+                ) {
+                    Icon(painter = painterResource(id = R.drawable.baseline_arrow_back_24),
+                        contentDescription = "Back")
                 }
             }
         },
         actions = {
             if (canShowSettings) {
-                IconButton(onClick = { goToSettings() }) {
+                IconButton(
+                    onClick = { goToSettings() },
+                    colors = IconButtonDefaults.iconButtonColors(
+                        containerColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                        contentColor = MaterialTheme.colorScheme.background,
+                    )
+                ) {
                     Icon(painter = painterResource(id = R.drawable.baseline_settings_24), 
                         contentDescription = "Settings")
                 }
             }
 
             if (canShowAbout) {
-                IconButton(onClick = { goToAbout() }) {
+                IconButton(
+                    onClick = { goToAbout() },
+                    colors = IconButtonDefaults.iconButtonColors(
+                        containerColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                        contentColor = MaterialTheme.colorScheme.background,
+                    )
+                ) {
                     Icon(painter = painterResource(id = R.drawable.baseline_info_24),
                         contentDescription = "About")
                 }
