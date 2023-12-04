@@ -33,10 +33,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.allears.models.ChordVM
 import com.example.allears.models.IntervalVM
 import com.example.allears.models.NoteVM
 import com.example.allears.models.SolfegeVM
 import com.example.allears.ui.screens.AboutScreen
+import com.example.allears.ui.screens.ChordScreen
 import com.example.allears.ui.screens.HomeScreen
 import com.example.allears.ui.screens.IntervalScreen
 import com.example.allears.ui.screens.IntervalSettingsScreen
@@ -79,6 +81,7 @@ fun AllEarsApp(context: Context, modifier: Modifier = Modifier) {
     val noteVM: NoteVM = viewModel()
     val solfegeVM: SolfegeVM = viewModel()
     val intervalVM: IntervalVM = viewModel()
+    val chordVM: ChordVM = viewModel()
 
     Scaffold(
         topBar = {
@@ -123,6 +126,10 @@ fun AllEarsApp(context: Context, modifier: Modifier = Modifier) {
                 IntervalScreen(intervalVM, context)
             }
 
+            composable(route = Screens.Chord.route) {
+                ChordScreen(chordVM, context)
+            }
+
             composable(route = Screens.NoteSettings.route) {
                 NoteSettingsScreen(noteVM)
             }
@@ -140,6 +147,13 @@ fun AllEarsApp(context: Context, modifier: Modifier = Modifier) {
                 SettingsScreen(
                     options = intervalVM.intervalsEnabled,
                     update = { intervalVM.updateEnabledInterval(it) }
+                )
+            }
+
+            composable(route = Screens.ChordSettings.route) {
+                SettingsScreen(
+                    options = chordVM.chordsEnabled,
+                    update = { chordVM.updateEnabledChord(it) }
                 )
             }
         }

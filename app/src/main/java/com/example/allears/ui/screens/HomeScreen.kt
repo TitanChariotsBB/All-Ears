@@ -24,18 +24,18 @@ fun HomeScreen(
     toChordScreen: ()->Unit, modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier.fillMaxSize().padding(vertical = 84.dp, horizontal = 18.dp),
+        modifier = modifier.fillMaxSize().padding(top = 84.dp, bottom = 8.dp, start = 18.dp, end = 18.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        ModeCard(
-            title = "Single Note",
-            description = "Practice identifying notes or scale degrees in the context of a key",
-            onClick = { toNoteScreen() }
-        )
+//        ModeCard(
+//            title = "Single Note",
+//            description = "Practice identifying notes or scale degrees in the context of a key",
+//            onClick = { toNoteScreen() }
+//        )
         ModeCard(
             title = "Solfege",
-            description = "Practice identifying scale degrees (using solfege syllables) in the context of a key",
+            description = "Practice identifying scale degrees (using solfege syllables)",
             onClick = { toSolfegeScreen() }
         )
         ModeCard(
@@ -45,7 +45,7 @@ fun HomeScreen(
         )
         ModeCard(
             title = "Chord",
-            description = "Practice identifying major, minor, augmented, diminished, and 7th chords",
+            description = "Practice identifying major, minor, augmented, diminished triads",
             onClick = { toChordScreen() }
         )
     }
