@@ -28,13 +28,13 @@ class StatsVM(
         }
     }
 
-    private fun addQuiz(quiz: Quiz){
+    fun addQuiz(quiz: Quiz){
         viewModelScope.launch{
             quizDao.upsertQuiz(quiz)
         }
     }
 
-    private fun deleteQuiz(quiz: Quiz){
+    fun deleteQuiz(quiz: Quiz){
         viewModelScope.launch{
             quizDao.deleteQuiz(quiz)
         }
