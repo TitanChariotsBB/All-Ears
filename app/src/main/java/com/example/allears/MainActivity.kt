@@ -41,12 +41,12 @@ import com.example.allears.ui.screens.AboutScreen
 import com.example.allears.ui.screens.ChordScreen
 import com.example.allears.ui.screens.HomeScreen
 import com.example.allears.ui.screens.IntervalScreen
-import com.example.allears.ui.screens.IntervalSettingsScreen
 import com.example.allears.ui.screens.NoteScreen
 import com.example.allears.ui.screens.NoteSettingsScreen
 import com.example.allears.ui.screens.Screens
 import com.example.allears.ui.screens.SettingsScreen
 import com.example.allears.ui.screens.SolfegeScreen
+import com.example.allears.ui.screens.StatisticsScreen
 import com.example.allears.ui.screens.canGoBack
 import com.example.allears.ui.screens.canShowAbout
 import com.example.allears.ui.screens.canShowSettings
@@ -106,7 +106,8 @@ fun AllEarsApp(context: Context, modifier: Modifier = Modifier) {
                     toNoteScreen = { navController.navigate(Screens.Note.route) },
                     toSolfegeScreen = { navController.navigate(Screens.Solfege.route) },
                     toIntervalScreen = { navController.navigate(Screens.Interval.route) },
-                    toChordScreen = { navController.navigate(Screens.Chord.route) }
+                    toChordScreen = { navController.navigate(Screens.Chord.route) },
+                    toStatsScreen = {navController.navigate(Screens.Statistics.route)}
                 )
             }
 
@@ -128,6 +129,10 @@ fun AllEarsApp(context: Context, modifier: Modifier = Modifier) {
 
             composable(route = Screens.Chord.route) {
                 ChordScreen(chordVM, context)
+            }
+
+            composable(route = Screens.Statistics.route) {
+                StatisticsScreen()
             }
 
             composable(route = Screens.NoteSettings.route) {

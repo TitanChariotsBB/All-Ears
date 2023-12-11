@@ -21,7 +21,7 @@ import com.example.allears.ui.theme.AllEarsTheme
 @Composable
 fun HomeScreen(
     toNoteScreen: ()->Unit, toSolfegeScreen: ()->Unit, toIntervalScreen: ()->Unit,
-    toChordScreen: ()->Unit, modifier: Modifier = Modifier
+    toChordScreen: ()->Unit, toStatsScreen:()->Unit, modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier.fillMaxSize().padding(top = 84.dp, bottom = 8.dp, start = 18.dp, end = 18.dp),
@@ -47,6 +47,11 @@ fun HomeScreen(
             title = "Chord",
             description = "Practice identifying major, minor, augmented, diminished triads",
             onClick = { toChordScreen() }
+        )
+        ModeCard(
+            title = "Statistics",
+            description = "See your scores from previous quizzes and track your progress!",
+            onClick = { toStatsScreen() }
         )
     }
 }
@@ -75,6 +80,6 @@ fun ModeCard(title: String, description: String, onClick: ()->Unit, modifier: Mo
 @Composable
 fun HomePreview() {
     AllEarsTheme {
-        HomeScreen({}, {}, {}, {})
+        HomeScreen({}, {}, {}, {}, {})
     }
 }

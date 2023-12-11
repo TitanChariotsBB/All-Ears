@@ -11,6 +11,7 @@ sealed class Screens(val route: String) {
     object SolfegeSettings: Screens("solfege_settings_screen")
     object IntervalSettings: Screens("interval_settings_screen")
     object ChordSettings: Screens("chord_settings_screen")
+    object Statistics: Screens("statistics_screen")
 }
 
 fun canGoBack(route: String?): Boolean {
@@ -22,7 +23,7 @@ fun canGoBack(route: String?): Boolean {
 
 fun canShowSettings(route: String?): Boolean {
     if (route != null) {
-        if (route != "home_screen" && route != "about_screen" && !route.contains("settings")) return true
+        if (route != "home_screen" && route != "about_screen" && route != "statistics_screen" && !route.contains("settings")) return true
     }
     return false
 }
