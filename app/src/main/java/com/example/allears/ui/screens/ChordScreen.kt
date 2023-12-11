@@ -55,13 +55,11 @@ fun ChordScreen(VM: ChordVM, context: Context, modifier: Modifier = Modifier) {
             items(intervalsEnabledList) {
                 AnswerButton(
                     text = it.first,
-                    onClick = {
-                        showFeedbackToast(
-                            correct = VM.onAnswerAttempt(it.first),
-                            context = context
-                        )
-                    },
-                    enabled = it.second)
+                    onClick = { VM.onAnswerAttempt(it.first) },
+                    isRevealed = { VM.revealWrongAnswer(it.first) },
+                    context = context,
+                    enabled = it.second
+                )
             }
         }
     }

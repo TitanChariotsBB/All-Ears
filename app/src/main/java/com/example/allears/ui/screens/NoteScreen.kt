@@ -100,34 +100,22 @@ fun NoteScreen(VM : NoteVM, modifier: Modifier = Modifier) {
                 Text("Play Reference (C)")
             }
 
-        LazyVerticalGrid(columns = GridCells.Fixed(3)) {
-            val buttonList = uiState.notes.filter {uiState.noteMap.get(it) == true}
-            items(buttonList){note ->
-                AnswerButton(text = note.toString(),
-                    onClick = {
-                        if(note == currentNote && hasNote){
-                            VM.scoreChanged(uiState.score + 1)
-                        }
-                        hasNote = false
-                    })
-            }
-        }
+//        LazyVerticalGrid(columns = GridCells.Fixed(3)) {
+//            val buttonList = uiState.notes.filter {uiState.noteMap.get(it) == true}
+//            items(buttonList){note ->
+//                AnswerButton(text = note.toString(),
+//                    onClick = {
+//                        if(note == currentNote && hasNote){
+//                            VM.scoreChanged(uiState.score + 1)
+//                        }
+//                        hasNote = false
+//                    })
+//            }
+//        }
     }
 }
 
 
-@Composable
-fun AnswerButton(text: String, onClick: ()->Unit, modifier: Modifier = Modifier, enabled: Boolean = true) {
-    FilledTonalButton(
-        onClick = { onClick() },
-        modifier = modifier
-            .padding(8.dp),
-        shape = RoundedCornerShape(16.dp),
-        enabled = enabled
-    ) {
-        Text(text = text)
-    }
-}
 fun playNotes(context : Context, currentNote : Char){
     val converter = NoteConverter()
     val fileName = currentNote.toString().lowercase() + "5";

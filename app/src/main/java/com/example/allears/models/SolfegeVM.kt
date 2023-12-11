@@ -11,6 +11,7 @@ class SolfegeVM: ViewModel() {
 
     var numRoundsCompleted by mutableStateOf(0)
     var numAttemptsAtCurrentQuestion by mutableStateOf(0)
+    var attemptedQuestions by mutableStateOf(mutableListOf<String>())
     var score by mutableStateOf(0)
     var correctAnswer by mutableStateOf("")
 
@@ -30,6 +31,7 @@ class SolfegeVM: ViewModel() {
         }
         numRoundsCompleted++
         numAttemptsAtCurrentQuestion = 0
+        attemptedQuestions.clear()
         generateNewCorrectAnswer()
     }
 
@@ -51,6 +53,7 @@ class SolfegeVM: ViewModel() {
             return true
         } else {
             numAttemptsAtCurrentQuestion++
+            attemptedQuestions.add(solfege)
             return false
         }
     }
@@ -58,5 +61,9 @@ class SolfegeVM: ViewModel() {
     fun getRoundStats(): String {
         if (numRoundsCompleted == 0) return "0/0 correct. (0%)"
         return score.toString() + "/" + numRoundsCompleted + " correct (" + round((score.toDouble() / numRoundsCompleted.toDouble()) * 100.0) + "%)"
+    }
+
+    fun revealWrongAnswer(name: String): Boolean {
+        return (attemptedQuestions.contains(name))
     }
 }

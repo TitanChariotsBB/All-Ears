@@ -11,6 +11,7 @@ class ChordVM: ViewModel() {
 
     var numRoundsCompleted by mutableStateOf(0)
     var numAttemptsAtCurrentQuestion by mutableStateOf(0)
+    var attemptedQuestions by mutableStateOf(mutableListOf<String>())
     var score by mutableStateOf(0)
     var correctAnswer by mutableStateOf("")
     // number refers to the range of the interval (1-25)
@@ -64,5 +65,9 @@ class ChordVM: ViewModel() {
     fun getRoundStats(): String {
         if (numRoundsCompleted == 0) return "0/0 correct. (0%)"
         return score.toString() + "/" + numRoundsCompleted + " correct (" + round((score.toDouble() / numRoundsCompleted.toDouble()) * 100.0) + "%)"
+    }
+
+    fun revealWrongAnswer(name: String): Boolean {
+        return (attemptedQuestions.contains(name))
     }
 }
