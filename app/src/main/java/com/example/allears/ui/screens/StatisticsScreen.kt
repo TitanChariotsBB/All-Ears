@@ -43,51 +43,7 @@ fun StatisticsScreen(modifier: Modifier = Modifier){
     val quizList by VM.quizzes.collectAsState()
     val steps = 20
 
-//    var points: MutableList<Point> = mutableListOf()
-//    for(quiz in quizList.reversed()){
-//        points.add(Point(quiz.quiz_id.toFloat(),
-//            (quiz.questions_correct/quiz.questions_attempted).toFloat()
-//        ))
-//        if(points.size >= 50){
-//            break
-//        }
-//    }
-//    val pointList = points.toList()
-//    val xAxisData = AxisData.Builder()
-//        .axisStepSize(100.dp)
-//        .backgroundColor(Color.Blue)
-//        .steps(points.size - 1)
-//        .labelData {i -> i.toString()}
-//        .labelAndAxisLinePadding(15.dp)
-//        .build()
-//
-//    val yAxisData = AxisData.Builder()
-//        .steps(steps)
-//        .backgroundColor(Color.Red)
-//        .labelAndAxisLinePadding(20.dp)
-//        .labelData { i ->
-//            val yScale = 100 / steps
-//            (i * yScale).toString()
-//        }.build()
-
-//    val lineChartData = LineChartData(
-//        linePlotData = LinePlotData(
-//            lines = listOf(
-//                Line(
-//                    dataPoints = pointList,
-//                    LineStyle(),
-//                    IntersectionPoint(),
-//                    SelectionHighlightPoint(),
-//                    ShadowUnderLine(),
-//                    SelectionHighlightPopUp()
-//                )
-//            ),
-//        ),
-//        xAxisData = xAxisData,
-//        yAxisData = yAxisData,
-//        gridLines = GridLines(),
-//        backgroundColor = Color.White
-//    )
+    val points: List<Point> = VM.listQuizzesAsPoints(quizList)
 
     Column(modifier = modifier.fillMaxSize().padding(vertical = 64.dp, horizontal = 32.dp),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -106,6 +62,49 @@ fun StatisticsScreen(modifier: Modifier = Modifier){
                     }
                 }
             }
+        }
+        if(points.size > 0) {
+            val xAxisData = AxisData.Builder()
+                .axisStepSize(100.dp)
+                .backgroundColor(Color.Blue)
+                .steps(points.size - 1)
+                .labelData { i -> i.toString() }
+                .labelAndAxisLinePadding(15.dp)
+                .build()
+
+            val yAxisData = AxisData.Builder()
+                .steps(steps)
+                .backgroundColor(Color.Red)
+                .labelAndAxisLinePadding(20.dp)
+                .labelData { i ->
+                    val yScale = 100 / steps
+                    (i * yScale).toString()
+                }.build()
+
+            val lineChartData = LineChartData(
+                linePlotData = LinePlotData(
+                    lines = listOf(
+                        Line(
+                            dataPoints = points,
+                            LineStyle(),
+                            IntersectionPoint(),
+                            SelectionHighlightPoint(),
+                            ShadowUnderLine(),
+                            SelectionHighlightPopUp()
+                        )
+                    ),
+                ),
+                xAxisData = xAxisData,
+                yAxisData = yAxisData,
+                gridLines = GridLines(),
+                backgroundColor = Color.White
+            )
+            LineChart(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(300.dp),
+                lineChartData = lineChartData
+            )
         }
     }
 }

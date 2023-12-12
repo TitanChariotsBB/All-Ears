@@ -1,13 +1,17 @@
 package com.example.allears.models
 
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import co.yml.charts.common.model.Point
 import com.example.allears.AllEarsApp
 import com.example.allears.data.Quiz
 import com.example.allears.data.QuizDao
 import com.example.allears.data.QuizData
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 
 class StatsVM(
@@ -27,7 +31,13 @@ class StatsVM(
             }
         }
     }
-
+    fun listQuizzesAsPoints(quizzes: List<Quiz>) : List<Point>{
+        val points : List<Point> = quizzes.map{
+            Point(it.quiz_id.toFloat(),
+                (it.questions_attempted/it.questions_correct).toFloat())
+        }
+        return points
+    }
     fun addQuiz(quiz: Quiz){
         highestIdNumber++
         viewModelScope.launch{

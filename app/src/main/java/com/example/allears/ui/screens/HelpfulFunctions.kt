@@ -7,6 +7,8 @@ import android.os.Build
 import android.widget.DatePicker
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import com.example.allears.data.Quiz
 import com.example.allears.models.StatsVM
 import java.sql.Date
@@ -32,5 +34,8 @@ fun addDatabaseEntry(quiz_id:Int, mode:String, questions_correct:Int, questions_
     val VM : StatsVM = StatsVM.getInstance()
     val today: String = LocalDate.now().toString()
     val q: Quiz = Quiz(quiz_id, mode, questions_correct, questions_attempted, today)
-    VM.addQuiz(q)
+    if(questions_attempted >= 1) {
+        VM.addQuiz(q)
+    }
 }
+
