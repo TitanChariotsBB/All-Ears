@@ -8,9 +8,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -23,9 +21,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -37,15 +33,12 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.allears.models.ChordVM
 import com.example.allears.models.IntervalVM
-import com.example.allears.models.NoteVM
 import com.example.allears.models.SolfegeVM
 import com.example.allears.models.StatsVM
 import com.example.allears.ui.screens.AboutScreen
 import com.example.allears.ui.screens.ChordScreen
 import com.example.allears.ui.screens.HomeScreen
 import com.example.allears.ui.screens.IntervalScreen
-import com.example.allears.ui.screens.NoteScreen
-import com.example.allears.ui.screens.NoteSettingsScreen
 import com.example.allears.ui.screens.Screens
 import com.example.allears.ui.screens.SettingsScreen
 import com.example.allears.ui.screens.SolfegeScreen
@@ -84,7 +77,6 @@ class MainActivity : ComponentActivity() {
 fun AllEarsApp(context: Context, modifier: Modifier = Modifier) {
     val navController = rememberNavController()
     val currentScreenHandler by navController.currentBackStackEntryAsState()
-    val noteVM: NoteVM = viewModel()
     val solfegeVM: SolfegeVM = viewModel()
     val intervalVM: IntervalVM = viewModel()
     val chordVM: ChordVM = viewModel()
@@ -137,10 +129,6 @@ fun AllEarsApp(context: Context, modifier: Modifier = Modifier) {
                 AboutScreen()
             }
 
-            composable(route = Screens.Note.route) {
-                NoteScreen(noteVM)
-            }
-
             composable(route = Screens.Solfege.route) {
                 SolfegeScreen(solfegeVM, context)
             }
@@ -155,10 +143,6 @@ fun AllEarsApp(context: Context, modifier: Modifier = Modifier) {
 
             composable(route = Screens.Statistics.route) {
                 StatisticsScreen()
-            }
-
-            composable(route = Screens.NoteSettings.route) {
-                NoteSettingsScreen(noteVM)
             }
 
             composable(route = Screens.SolfegeSettings.route) {
