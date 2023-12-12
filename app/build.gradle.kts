@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.allears"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -48,6 +48,7 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
 }
 
 dependencies {
@@ -74,4 +75,7 @@ dependencies {
     implementation("androidx.room:room-runtime:$room_version")
     implementation("androidx.room:room-ktx:${room_version}")
     kapt("androidx.room:room-compiler:$room_version")
+
+    //Graphs
+    implementation("co.yml:ycharts:2.1.0")
 }
