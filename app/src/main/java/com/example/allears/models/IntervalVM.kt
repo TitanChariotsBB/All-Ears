@@ -36,6 +36,7 @@ class IntervalVM: ViewModel() {
         }
         numRoundsCompleted++
         numAttemptsAtCurrentQuestion = 0
+        attemptedQuestions.clear()
         generateNewCorrectAnswer()
     }
 
@@ -58,6 +59,7 @@ class IntervalVM: ViewModel() {
             return true
         } else {
             numAttemptsAtCurrentQuestion++
+            attemptedQuestions.add(interval)
             return false
         }
     }

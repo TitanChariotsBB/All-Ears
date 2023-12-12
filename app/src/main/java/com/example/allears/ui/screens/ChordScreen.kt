@@ -29,7 +29,7 @@ fun ChordScreen(VM: ChordVM, context: Context, modifier: Modifier = Modifier) {
             .padding(vertical = 64.dp, horizontal = 32.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = VM.correctAnswer)
+//        Text(text = VM.correctAnswer)
         Text(text = VM.getRoundStats())
         OutlinedButton(
             onClick = { playChord(VM.correctAnswer, VM.number, context) },

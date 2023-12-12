@@ -29,7 +29,7 @@ fun IntervalScreen(VM: IntervalVM, context: Context, modifier: Modifier = Modifi
             .padding(vertical = 64.dp, horizontal = 32.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = VM.correctAnswer)
+//        Text(text = VM.correctAnswer)
         Text(text = VM.getRoundStats())
         OutlinedButton(
             onClick = { playInterval(VM.correctAnswer, VM.number, context) },

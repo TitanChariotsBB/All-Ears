@@ -36,6 +36,7 @@ class ChordVM: ViewModel() {
         }
         numRoundsCompleted++
         numAttemptsAtCurrentQuestion = 0
+        attemptedQuestions.clear()
         generateNewCorrectAnswer()
     }
 
@@ -58,6 +59,7 @@ class ChordVM: ViewModel() {
             return true
         } else {
             numAttemptsAtCurrentQuestion++
+            attemptedQuestions.add(chord)
             return false
         }
     }

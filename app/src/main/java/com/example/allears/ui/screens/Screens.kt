@@ -47,6 +47,9 @@ fun findSettingsRoute(route: String?): String {
 
 fun getPrettyTitle(route: String?): String {
     if (route != null) {
-        return route.replace("_", " ").replace("screen", "").replaceFirstChar{it.uppercase()}
+        var str = route.replace("_", "")
+            .replace("screen", "").replace("settings", "")
+            .replaceFirstChar{it.uppercase()}.trim()
+        return if (str == "Home" || str == "About") "All Ears" else str
     } else return "All Ears"
 }

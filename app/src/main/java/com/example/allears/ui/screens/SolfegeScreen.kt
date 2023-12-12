@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
@@ -58,7 +59,7 @@ fun SolfegeScreen(VM: SolfegeVM, context: Context, modifier: Modifier = Modifier
             modifier = modifier.padding(bottom = 16.dp),
             shape = RoundedCornerShape(16.dp)
         ) {
-            Text(text = "Play referrence pitch")
+            Text(text = "Play reference pitch")
         }
 
         LazyVerticalGrid(columns = GridCells.Fixed(2)) {
@@ -78,8 +79,9 @@ fun SolfegeScreen(VM: SolfegeVM, context: Context, modifier: Modifier = Modifier
 
 @Composable
 fun AnswerButton(text: String, onClick: ()->Boolean, isRevealed: ()->Boolean, context: Context, enabled: Boolean = true, modifier: Modifier = Modifier) {
-    val defaultColor = MaterialTheme.colorScheme.primaryContainer
-    val wrongAnsColor = MaterialTheme.colorScheme.errorContainer
+    val defaultColor = MaterialTheme.colorScheme.onSurfaceVariant
+    val wrongAnsColor = MaterialTheme.colorScheme.error
+
     var isCorrectAnswer: Boolean
     var showDialog by rememberSaveable {
         mutableStateOf(false)
@@ -91,7 +93,7 @@ fun AnswerButton(text: String, onClick: ()->Boolean, isRevealed: ()->Boolean, co
 
     color = if (isRevealed()) wrongAnsColor else defaultColor
 
-    FilledTonalButton(
+    Button(
         onClick = {
             isCorrectAnswer = onClick()
             if (isCorrectAnswer) showFeedbackToast(true, context)
