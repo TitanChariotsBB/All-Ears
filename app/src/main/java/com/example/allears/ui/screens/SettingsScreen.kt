@@ -32,7 +32,7 @@ fun SettingsScreen(options: MutableMap<String, Boolean>, update: (option: String
 
         for (pair in options) {
             OptionCheckBox(
-                text = pair.key,
+                text = pair.key.replace("_", ""),
                 isChecked = pair.value,
                 onChange = { update(pair.key) }
             )
