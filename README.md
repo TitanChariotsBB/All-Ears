@@ -28,9 +28,9 @@ Android ear-training app.
 - [ ] Google Map 
 - [ ] REST API: retrofit 
 - [ ] LLM API (design your prompt)
-- [ ] Dagger Hilt and Dependency Injection 
+- [x] Dagger Hilt and Dependency Injection 
 - [ ] Intents
-- [ ] Database (Dao)
+- [x] Database (Dao)
 
 ### Basic Topics that are not covered in class (Choose 1) (5 pts)
 - [ ] Tab Layout
