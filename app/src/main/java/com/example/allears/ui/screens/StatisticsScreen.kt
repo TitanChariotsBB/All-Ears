@@ -41,7 +41,7 @@ import com.example.allears.models.StatsVM
 fun StatisticsScreen(modifier: Modifier = Modifier){
     val VM : StatsVM = StatsVM.getInstance()
     val quizList by VM.quizzes.collectAsState()
-    val steps = 20
+    val steps = 10
 
     val points: List<Point> = VM.listQuizzesAsPoints(quizList)
 

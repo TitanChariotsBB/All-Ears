@@ -34,7 +34,7 @@ class StatsVM(
     fun listQuizzesAsPoints(quizzes: List<Quiz>) : List<Point>{
         val points : List<Point> = quizzes.map{
             Point(it.quiz_id.toFloat(),
-                (it.questions_attempted/it.questions_correct).toFloat())
+                (it.questions_correct/(it.questions_attempted).toFloat()) * 100)
         }
         return points
     }
