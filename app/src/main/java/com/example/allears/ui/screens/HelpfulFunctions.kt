@@ -2,16 +2,11 @@ package com.example.allears.ui.screens
 
 import android.content.Context
 import android.content.res.Resources
-import android.media.MediaPlayer
 import android.os.Build
-import android.widget.DatePicker
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import com.example.allears.data.Quiz
 import com.example.allears.models.StatsVM
-import java.sql.Date
 import java.time.LocalDate
 
 fun Context.resIdByName(resIdName: String?, resType: String): Int {
@@ -33,7 +28,7 @@ fun showFeedbackToast(correct: Boolean, context: Context): Boolean {
 fun addDatabaseEntry(quiz_id:Int, mode:String, questions_correct:Int, questions_attempted:Int){
     val VM : StatsVM = StatsVM.getInstance()
     val today: String = LocalDate.now().toString()
-    val q: Quiz = Quiz(quiz_id, mode, questions_correct, questions_attempted, today)
+    val q = Quiz(quiz_id, mode, questions_correct, questions_attempted, today)
     if(questions_attempted >= 1) {
         VM.addQuiz(q)
     }

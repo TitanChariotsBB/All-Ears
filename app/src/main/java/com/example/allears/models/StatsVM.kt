@@ -1,7 +1,6 @@
 package com.example.allears.models
 
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.yml.charts.common.model.Point
@@ -11,7 +10,6 @@ import com.example.allears.data.QuizDao
 import com.example.allears.data.QuizData
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 
 class StatsVM(

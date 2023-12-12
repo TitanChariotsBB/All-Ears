@@ -26,7 +26,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
-import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -54,7 +53,6 @@ import com.example.allears.ui.screens.canShowSettings
 import com.example.allears.ui.screens.findSettingsRoute
 import com.example.allears.ui.screens.getPrettyTitle
 import com.example.allears.ui.theme.AllEarsTheme
-import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.O)

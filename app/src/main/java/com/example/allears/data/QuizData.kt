@@ -1,6 +1,5 @@
 package com.example.allears.data
 
-import java.util.Date
 
 object QuizData{
     val listOfQuizzes = listOf<Quiz>(
