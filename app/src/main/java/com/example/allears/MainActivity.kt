@@ -2,9 +2,11 @@ package com.example.allears
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -24,6 +26,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
+import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -33,6 +36,7 @@ import com.example.allears.models.ChordVM
 import com.example.allears.models.IntervalVM
 import com.example.allears.models.NoteVM
 import com.example.allears.models.SolfegeVM
+import com.example.allears.models.StatsVM
 import com.example.allears.ui.screens.AboutScreen
 import com.example.allears.ui.screens.ChordScreen
 import com.example.allears.ui.screens.HomeScreen
@@ -43,14 +47,17 @@ import com.example.allears.ui.screens.Screens
 import com.example.allears.ui.screens.SettingsScreen
 import com.example.allears.ui.screens.SolfegeScreen
 import com.example.allears.ui.screens.StatisticsScreen
+import com.example.allears.ui.screens.addDatabaseEntry
 import com.example.allears.ui.screens.canGoBack
 import com.example.allears.ui.screens.canShowAbout
 import com.example.allears.ui.screens.canShowSettings
 import com.example.allears.ui.screens.findSettingsRoute
 import com.example.allears.ui.screens.getPrettyTitle
 import com.example.allears.ui.theme.AllEarsTheme
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, true)
@@ -68,6 +75,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -83,7 +91,23 @@ fun AllEarsApp(context: Context, modifier: Modifier = Modifier) {
         topBar = {
             AllEarsTopBar(
                 canNavigateBack = canGoBack(currentScreenHandler?.destination?.route),
-                navigateBack = { navController.navigateUp() },
+                navigateBack = {
+                    val VM : StatsVM = StatsVM.getInstance()
+                    VM.updateIDNumber()
+                    if(currentScreenHandler?.destination?.route == "solfege_screen"){
+                        addDatabaseEntry(VM.highestIdNumber + 1, "Solfege", solfegeVM.score,
+                            solfegeVM.numRoundsCompleted)
+                    }
+                    else if(currentScreenHandler?.destination?.route == "interval_screen"){
+                        addDatabaseEntry(VM.highestIdNumber + 1, "Interval", intervalVM.score,
+                            intervalVM.numRoundsCompleted)
+                    }
+                    else if(currentScreenHandler?.destination?.route == "chord_screen"){
+                        addDatabaseEntry(VM.highestIdNumber + 1, "Chord", chordVM.score,
+                            chordVM.numRoundsCompleted)
+                    }
+                    navController.navigateUp()
+                               },
                 title = getPrettyTitle(currentScreenHandler?.destination?.route),
                 canShowSettings = canShowSettings(currentScreenHandler?.destination?.route),
                 goToSettings = { navController.navigate(findSettingsRoute(currentScreenHandler?.destination?.route)) },

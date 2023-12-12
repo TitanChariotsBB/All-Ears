@@ -3,7 +3,14 @@ package com.example.allears.ui.screens
 import android.content.Context
 import android.content.res.Resources
 import android.media.MediaPlayer
+import android.os.Build
+import android.widget.DatePicker
 import android.widget.Toast
+import androidx.annotation.RequiresApi
+import com.example.allears.data.Quiz
+import com.example.allears.models.StatsVM
+import java.sql.Date
+import java.time.LocalDate
 
 fun Context.resIdByName(resIdName: String?, resType: String): Int {
     resIdName?.let {
@@ -18,4 +25,12 @@ fun showFeedbackToast(correct: Boolean, context: Context): Boolean {
     val toast = Toast.makeText(context, text, duration)
     toast.show()
     return correct
+}
+
+@RequiresApi(Build.VERSION_CODES.O)
+fun addDatabaseEntry(quiz_id:Int, mode:String, questions_correct:Int, questions_attempted:Int){
+    val VM : StatsVM = StatsVM.getInstance()
+    val today: String = LocalDate.now().toString()
+    val q: Quiz = Quiz(quiz_id, mode, questions_correct, questions_attempted, today)
+    VM.addQuiz(q)
 }

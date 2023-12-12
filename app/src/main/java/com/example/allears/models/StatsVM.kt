@@ -15,7 +15,7 @@ class StatsVM(
 ): ViewModel() {
     val quizzes = quizDao.getAllQuizzes()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), emptyList())
-
+    var highestIdNumber:Int = 0
     init{
         createQuizTable()
     }
@@ -29,6 +29,7 @@ class StatsVM(
     }
 
     fun addQuiz(quiz: Quiz){
+        highestIdNumber++
         viewModelScope.launch{
             quizDao.upsertQuiz(quiz)
         }
@@ -39,6 +40,11 @@ class StatsVM(
             quizDao.deleteQuiz(quiz)
         }
     }
+
+    fun updateIDNumber(){
+        highestIdNumber = quizzes.value.size
+    }
+
 
     companion object{
         private var INSTANCE: StatsVM? = null

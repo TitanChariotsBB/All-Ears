@@ -42,10 +42,6 @@ fun StatisticsScreen(modifier: Modifier = Modifier){
                         }
                         Spacer(modifier = modifier.weight(1.0f))
 
-                        IconButton(onClick = { VM.deleteQuiz(quiz) }) {
-                            Icon(painter = painterResource(id = R.drawable.baseline_delete_24),
-                                contentDescription = null)
-                        }
                     }
                 }
             }
