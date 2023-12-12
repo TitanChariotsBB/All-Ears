@@ -180,8 +180,7 @@ fun AllEarsTopBar(
     canShowSettings: Boolean,
     goToSettings: ()->Unit,
     canShowAbout: Boolean,
-    goToAbout: ()->Unit,
-    modifier: Modifier = Modifier
+    goToAbout: ()->Unit
 ) {
     CenterAlignedTopAppBar(
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(

@@ -67,11 +67,11 @@ fun ModeCard(title: String, description: String, onClick: ()->Unit, modifier: Mo
         Column(modifier = modifier.padding(16.dp)) {
             Text(
                 text = title,
-                fontSize = 36.sp,
+                fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = modifier.padding(bottom = 8.dp)
             )
-            Text(text = description, fontSize = 18.sp)
+            Text(text = description, fontSize = 16.sp)
         }
     }
 }

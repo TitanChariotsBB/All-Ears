@@ -28,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.allears.R
 import com.example.allears.models.SolfegeVM
 
@@ -36,7 +37,7 @@ fun SolfegeScreen(VM: SolfegeVM, context: Context, modifier: Modifier = Modifier
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(vertical = 64.dp, horizontal = 32.dp),
+            .padding(top = 64.dp, start = 32.dp, bottom = 8.dp, end = 32.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(text = VM.getRoundStats())
@@ -45,7 +46,8 @@ fun SolfegeScreen(VM: SolfegeVM, context: Context, modifier: Modifier = Modifier
             modifier = modifier
                 .padding(32.dp)
                 .size(172.dp),
-            shape = RoundedCornerShape(32.dp)
+            shape = RoundedCornerShape(32.dp),
+            //colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.surfaceVariant, contentColor = MaterialTheme.colorScheme.primary)
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.baseline_volume_up_24),
@@ -56,10 +58,10 @@ fun SolfegeScreen(VM: SolfegeVM, context: Context, modifier: Modifier = Modifier
 
         OutlinedButton(
             onClick = { playSolfege("do_", context) },
-            modifier = modifier.padding(bottom = 16.dp),
-            shape = RoundedCornerShape(16.dp)
+            modifier = modifier.padding(bottom = 32.dp),
+            shape = RoundedCornerShape(15.dp)
         ) {
-            Text(text = "Play reference pitch")
+            Text(text = "Play reference pitch", fontSize = 14.sp)
         }
 
         LazyVerticalGrid(columns = GridCells.Fixed(2)) {
@@ -105,7 +107,7 @@ fun AnswerButton(text: String, onClick: ()->Boolean, isRevealed: ()->Boolean, co
         enabled = enabled,
         colors = ButtonDefaults.buttonColors(containerColor = color)
     ) {
-        Text(text = text)
+        Text(text = text, fontSize = 14.sp)
     }
 
 }

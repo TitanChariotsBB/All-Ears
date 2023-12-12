@@ -26,7 +26,7 @@ fun IntervalScreen(VM: IntervalVM, context: Context, modifier: Modifier = Modifi
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(vertical = 64.dp, horizontal = 32.dp),
+            .padding(top = 64.dp, start = 32.dp, bottom = 8.dp, end = 32.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 //        Text(text = VM.correctAnswer)
