@@ -8,8 +8,12 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -25,6 +29,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -55,6 +60,7 @@ import com.example.allears.ui.screens.canShowShare
 import com.example.allears.ui.screens.findSettingsRoute
 import com.example.allears.ui.screens.getPrettyTitle
 import com.example.allears.ui.theme.AllEarsTheme
+import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
@@ -300,38 +306,43 @@ fun AllEarsBottomBar(
     doExityStuff: ()->Unit
 ){
     BottomAppBar(
+        modifier = Modifier
+            .fillMaxWidth()
+            .size(42.dp),
         containerColor = MaterialTheme.colorScheme.surface,
         contentColor = MaterialTheme.colorScheme.onSurface,
     ){
-        TextButton(onClick = {
-            goToSolfege()
-            doExityStuff()
-        }){
-            Text("Solfege")
-        }
-        TextButton(onClick = {
-            goToInterval()
-            doExityStuff()
-        }){
-            Text("Interval")
-        }
-        TextButton(onClick = {
-            goToChord()
-            doExityStuff()
-        }){
-            Text("Chord")
-        }
-        TextButton(onClick = {
-            goToStats()
-            doExityStuff()
-        }){
-            Text("Stats")
-        }
-        TextButton(onClick = {
-            goToHome()
-            doExityStuff()
-        }){
-            Text("Home")
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
+            TextButton(onClick = {
+                goToSolfege()
+                doExityStuff()
+            }){
+                Text("Solfege")
+            }
+            TextButton(onClick = {
+                goToInterval()
+                doExityStuff()
+            }){
+                Text("Interval")
+            }
+            TextButton(onClick = {
+                goToChord()
+                doExityStuff()
+            }){
+                Text("Chord")
+            }
+            TextButton(onClick = {
+                goToStats()
+                doExityStuff()
+            }){
+                Text("Stats")
+            }
+            TextButton(onClick = {
+                goToHome()
+                doExityStuff()
+            }){
+                Text("Home")
+            }
         }
     }
 }
