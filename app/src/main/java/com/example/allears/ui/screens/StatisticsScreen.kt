@@ -31,34 +31,30 @@ import co.yml.charts.ui.linechart.model.LineStyle
 import co.yml.charts.ui.linechart.model.SelectionHighlightPoint
 import co.yml.charts.ui.linechart.model.SelectionHighlightPopUp
 import co.yml.charts.ui.linechart.model.ShadowUnderLine
+import com.example.allears.data.Quiz
 import com.example.allears.models.StatsVM
 
 @Composable
 fun StatisticsScreen(modifier: Modifier = Modifier){
     val VM : StatsVM = StatsVM.getInstance()
     val quizList by VM.quizzes.collectAsState()
+    val requiredMode = "All"
+    val modeList: List<Quiz>
+    if(requiredMode == "All"){
+        modeList = quizList
+    }
+    else {
+        modeList = quizList.filter {
+            it.mode == requiredMode
+        }
+    }
     val steps = 10
-
-    val points: List<Point> = VM.listQuizzesAsPoints(quizList)
+    val points: List<Point> = VM.listQuizzesAsPoints(modeList)
 
     Column(modifier = modifier.fillMaxSize().padding(vertical = 64.dp, horizontal = 32.dp),
         horizontalAlignment = Alignment.CenterHorizontally
         ){
-        LazyColumn(horizontalAlignment = Alignment.CenterHorizontally){
-            items(quizList){quiz ->
-                Card(modifier = modifier.fillMaxWidth().padding(8.dp)){
-                    Row(modifier = modifier.padding(8.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween) {
-                        Column() {
-                            Text("id: ${quiz.quiz_id} mode: ${quiz.mode}")
-                            Text("percentage: ${quiz.questions_correct/(quiz.questions_attempted).toDouble()} date : ${quiz.date}")
-                        }
-                        Spacer(modifier = modifier.weight(1.0f))
 
-                    }
-                }
-            }
-        }
         if(points.size > 0) {
             val xAxisData = AxisData.Builder()
                 .axisStepSize(100.dp)
@@ -101,6 +97,9 @@ fun StatisticsScreen(modifier: Modifier = Modifier){
                     .height(300.dp),
                 lineChartData = lineChartData
             )
+        }
+        Row(modifier = modifier.fillMaxWidth()){
+
         }
     }
 }

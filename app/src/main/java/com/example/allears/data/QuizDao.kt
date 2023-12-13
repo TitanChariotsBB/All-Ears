@@ -21,6 +21,15 @@ interface QuizDao{
     @Query("SELECT * FROM quiz")
     fun getAllQuizzes(): Flow<List<Quiz>>
 
+    @Query("SELECT * FROM quiz WHERE mode = 'Solfege'")
+    fun getSolfegeQuizzes(): Flow<List<Quiz>>
+
+    @Query("SELECT * FROM quiz WHERE mode = 'Interval'")
+    fun getIntervalQuizzes(): Flow<List<Quiz>>
+
+    @Query("SELECT * FROM quiz WHERE mode = 'Chord'")
+    fun getChordQuizzes(): Flow<List<Quiz>>
+
     @Query("SELECT MAX(quiz_id) FROM quiz")
     fun getMaxId(): Int
 }
