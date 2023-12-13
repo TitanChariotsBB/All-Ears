@@ -36,7 +36,7 @@ Android ear-training app.
 - [ ] Tab Layout
 - [ ] Notifications
 - [ ] WebView 
-- [ ] Bottom Navigation
+- [x] Bottom Navigation
 - [ ] Search Bar 
 - [ ] …
 
