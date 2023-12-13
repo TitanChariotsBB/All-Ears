@@ -67,54 +67,50 @@ fun StatisticsScreen(modifier: Modifier = Modifier){
     Column(modifier = modifier.fillMaxSize().padding(vertical = 64.dp, horizontal = 32.dp),
         horizontalAlignment = Alignment.CenterHorizontally
         ){
-        Row(modifier = modifier.height(100.dp)){
-            Column(modifier = modifier.fillMaxHeight().width((screenWidth/4).dp)){
+        Row(modifier = modifier.height(64.dp).fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceAround){
                 Button(onClick = {requiredMode = "All"}){
                     Text("ALL")
                 }
-            }
-            Column(modifier = modifier.fillMaxHeight().width((screenWidth/4).dp)){
                 Button(onClick = {requiredMode = "Solfege"}){
                     Text("SOLFEGE")
                 }
+        }
+        Row(modifier = modifier.height(64.dp).fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceAround){
+            Button(onClick = {requiredMode = "Interval"}){
+                Text("INTERVAL")
             }
-            Column(modifier = modifier.fillMaxHeight().width((screenWidth/4).dp)){
-                Button(onClick = {requiredMode = "Interval"}){
-                    Text("INTERVAL")
-                }
-            }
-            Column(modifier = modifier.fillMaxHeight().width((screenWidth/4).dp)){
-                Button(onClick = {requiredMode = "Chord"}){
-                    Text("CHORD")
-                }
+            Button(onClick = {requiredMode = "Chord"}) {
+                Text("CHORD")
             }
         }
-        LazyColumn(horizontalAlignment = Alignment.CenterHorizontally){
-
-            items(quizList){quiz->
-                Card(modifier = modifier
-                    .fillMaxWidth()
-                    .padding(8.dp)) {
-
-                    Row(modifier = modifier.padding(8.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween) {
-                        Column() {
-                            Text("id: ${quiz.quiz_id} questions_right: ${quiz.questions_correct}")
-                            Text("questions_attempted: ${quiz.questions_attempted} mode : ${quiz.mode}")
-                        }
-                        Spacer(modifier = modifier.weight(1.0f))
-
-                        IconButton(onClick = { VM.deleteQuiz(quiz) }) {
-                            Icon(painter = painterResource(id = R.drawable.baseline_delete_24),
-                                contentDescription = null)
-                        }
-
-                    }
-
-                }
-            }
-
-        }
+//        LazyColumn(horizontalAlignment = Alignment.CenterHorizontally){
+//
+//            items(quizList){quiz->
+//                Card(modifier = modifier
+//                    .fillMaxWidth()
+//                    .padding(8.dp)) {
+//
+//                    Row(modifier = modifier.padding(8.dp),
+//                        horizontalArrangement = Arrangement.SpaceBetween) {
+//                        Column() {
+//                            Text("id: ${quiz.quiz_id} questions_right: ${quiz.questions_correct}")
+//                            Text("questions_attempted: ${quiz.questions_attempted} mode : ${quiz.mode}")
+//                        }
+//                        Spacer(modifier = modifier.weight(1.0f))
+//
+//                        IconButton(onClick = { VM.deleteQuiz(quiz) }) {
+//                            Icon(painter = painterResource(id = R.drawable.baseline_delete_24),
+//                                contentDescription = null)
+//                        }
+//
+//                    }
+//
+//                }
+//            }
+//
+//        }
         if(points.size > 0) {
             var maxScore = 0F
             var minScore = 100F
