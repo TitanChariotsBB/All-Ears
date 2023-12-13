@@ -2,6 +2,7 @@ package com.example.allears
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -27,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
@@ -49,6 +51,7 @@ import com.example.allears.ui.screens.addDatabaseEntry
 import com.example.allears.ui.screens.canGoBack
 import com.example.allears.ui.screens.canShowAbout
 import com.example.allears.ui.screens.canShowSettings
+import com.example.allears.ui.screens.canShowShare
 import com.example.allears.ui.screens.findSettingsRoute
 import com.example.allears.ui.screens.getPrettyTitle
 import com.example.allears.ui.theme.AllEarsTheme
@@ -112,7 +115,18 @@ fun AllEarsApp(context: Context, modifier: Modifier = Modifier) {
                 canShowSettings = canShowSettings(currentScreenHandler?.destination?.route),
                 goToSettings = { navController.navigate(findSettingsRoute(currentScreenHandler?.destination?.route)) },
                 canShowAbout = canShowAbout(currentScreenHandler?.destination?.route),
-                goToAbout = { navController.navigate(Screens.About.route) }
+                goToAbout = { navController.navigate(Screens.About.route) },
+                canShowShare = canShowShare(currentScreenHandler?.destination?.route),
+                goToShare = {
+                    var text = "Check out my All Ears quiz results!\n"
+                    when (getPrettyTitle(currentScreenHandler?.destination?.route)) {
+                        "Solfege" -> text += solfegeVM.getRoundStats()
+                        "Interval" -> text += intervalVM.getRoundStats()
+                        "Chord" -> text += chordVM.getRoundStats()
+                        else -> "0/0 correct. (0%)"
+                    }
+                    launchShare(text, context)
+                }
             )
         },
         bottomBar = {
@@ -154,7 +168,7 @@ fun AllEarsApp(context: Context, modifier: Modifier = Modifier) {
                     toSolfegeScreen = { navController.navigate(Screens.Solfege.route) },
                     toIntervalScreen = { navController.navigate(Screens.Interval.route) },
                     toChordScreen = { navController.navigate(Screens.Chord.route) },
-                    toStatsScreen = {navController.navigate(Screens.Statistics.route)}
+                    toStatsScreen = { navController.navigate(Screens.Statistics.route) }
                 )
             }
 
@@ -213,7 +227,9 @@ fun AllEarsTopBar(
     canShowSettings: Boolean,
     goToSettings: ()->Unit,
     canShowAbout: Boolean,
-    goToAbout: ()->Unit
+    goToAbout: ()->Unit,
+    canShowShare: Boolean,
+    goToShare: ()->Unit
 ) {
     CenterAlignedTopAppBar(
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
@@ -235,6 +251,18 @@ fun AllEarsTopBar(
             }
         },
         actions = {
+            if (canShowShare) {
+                IconButton(
+                    onClick = { goToShare() },
+                    colors = IconButtonDefaults.iconButtonColors(
+                        contentColor = MaterialTheme.colorScheme.onSurface,
+                    )
+                ) {
+                    Icon(painter = painterResource(id = R.drawable.baseline_share_24),
+                        contentDescription = "Share")
+                }
+            }
+
             if (canShowSettings) {
                 IconButton(
                     onClick = { goToSettings() },
@@ -306,4 +334,17 @@ fun AllEarsBottomBar(
             Text("Home")
         }
     }
+}
+
+fun launchShare(text: String, context: Context) {
+    val intent = Intent(Intent.ACTION_SEND).apply {
+        type = "text/plain"
+        putExtra(Intent.EXTRA_TEXT, text)
+    }
+
+//    if(intent.resolveActivity(packageManager) != null) {
+    startActivity(context, intent, null)
+//    } else {
+//        println("No app found to handle email")
+//    }
 }

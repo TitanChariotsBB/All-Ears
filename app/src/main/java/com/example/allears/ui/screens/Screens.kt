@@ -35,6 +35,13 @@ fun canShowAbout(route: String?): Boolean {
     return false
 }
 
+fun canShowShare(route: String?): Boolean {
+    if (route != null) {
+        if (route.contains("solfege") || route.contains("interval") || route.contains("chord")) return true
+    }
+    return false
+}
+
 fun findSettingsRoute(route: String?): String {
     when (route) {
         "note_screen" -> return "note_settings_screen"
