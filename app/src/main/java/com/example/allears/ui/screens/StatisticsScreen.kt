@@ -16,6 +16,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -25,6 +26,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
@@ -65,10 +67,14 @@ fun StatisticsScreen(modifier: Modifier = Modifier){
     val points: List<Point> = VM.listQuizzesAsPoints(modeList)
     val screenWidth = (config.screenWidthDp - 64).dp.value
 
-    Column(modifier = modifier.fillMaxSize().padding(vertical = 64.dp, horizontal = 32.dp),
+    Column(modifier = modifier
+        .fillMaxSize()
+        .padding(vertical = 64.dp, horizontal = 32.dp),
         horizontalAlignment = Alignment.CenterHorizontally
         ){
-        Row(modifier = modifier.height(64.dp).fillMaxWidth(),
+        Row(modifier = modifier
+            .height(64.dp)
+            .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceAround){
                 Button(onClick = {requiredMode = "All"}){
                     Text("ALL")
@@ -77,7 +83,9 @@ fun StatisticsScreen(modifier: Modifier = Modifier){
                     Text("SOLFEGE")
                 }
         }
-        Row(modifier = modifier.height(64.dp).fillMaxWidth(),
+        Row(modifier = modifier
+            .height(64.dp)
+            .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceAround){
             Button(onClick = {requiredMode = "Interval"}){
                 Text("INTERVAL")
@@ -121,7 +129,10 @@ fun StatisticsScreen(modifier: Modifier = Modifier){
             }
             val xAxisData = AxisData.Builder()
                 .axisStepSize(100.dp)
-                .backgroundColor(Color.Blue)
+                //.backgroundColor(Color.Blue)
+                .backgroundColor(MaterialTheme.colorScheme.surface)
+                .axisLabelColor(MaterialTheme.colorScheme.onSurface)
+                .axisLineColor(MaterialTheme.colorScheme.onSurface)
                 .steps(points.size - 1)
                 .labelData { i -> i.toString() }
                 .labelAndAxisLinePadding(15.dp)
@@ -129,7 +140,10 @@ fun StatisticsScreen(modifier: Modifier = Modifier){
 
             val yAxisData = AxisData.Builder()
                 .steps(steps)
-                .backgroundColor(Color.Red)
+//                .backgroundColor(Color.Red)
+                .backgroundColor(MaterialTheme.colorScheme.surface)
+                .axisLabelColor(MaterialTheme.colorScheme.onSurface)
+                .axisLineColor(MaterialTheme.colorScheme.onSurface)
                 .labelAndAxisLinePadding(20.dp)
                 .labelData { i ->
                     val yScale = (maxScore-minScore)/steps
@@ -141,10 +155,17 @@ fun StatisticsScreen(modifier: Modifier = Modifier){
                     lines = listOf(
                         Line(
                             dataPoints = points,
-                            LineStyle(),
-                            IntersectionPoint(),
+                            LineStyle(color = MaterialTheme.colorScheme.onSurfaceVariant),
+                            IntersectionPoint(color = MaterialTheme.colorScheme.onSurfaceVariant),
                             SelectionHighlightPoint(),
-                            ShadowUnderLine(),
+                            ShadowUnderLine(
+                                brush = Brush.verticalGradient(
+                                    listOf(
+                                        MaterialTheme.colorScheme.surfaceVariant,
+                                        MaterialTheme.colorScheme.surfaceVariant
+                                    )
+                                ), alpha = 0.5f
+                            ),
                             SelectionHighlightPopUp()
                         )
                     ),
@@ -152,7 +173,8 @@ fun StatisticsScreen(modifier: Modifier = Modifier){
                 xAxisData = xAxisData,
                 yAxisData = yAxisData,
                 gridLines = GridLines(),
-                backgroundColor = Color.White
+//                backgroundColor = Color.White
+                backgroundColor = MaterialTheme.colorScheme.surface
             )
             LineChart(
                 modifier = Modifier
