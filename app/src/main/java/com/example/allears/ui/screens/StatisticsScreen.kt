@@ -30,6 +30,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import co.yml.charts.axis.AxisData
+import co.yml.charts.common.extensions.formatToSinglePrecision
 import co.yml.charts.common.model.Point
 import co.yml.charts.ui.linechart.LineChart
 import co.yml.charts.ui.linechart.model.GridLines
@@ -111,12 +112,12 @@ fun StatisticsScreen(modifier: Modifier = Modifier){
 //            }
 //
 //        }
-        if(points.size > 0) {
+        if(points.isNotEmpty()) {
             var maxScore = 0F
             var minScore = 100F
             for(point in points){
-                maxScore = Math.max(maxScore, point.y)
-                minScore = Math.min(minScore, point.y)
+                maxScore = maxScore.coerceAtLeast(point.y)
+                minScore = minScore.coerceAtMost(point.y)
             }
             val xAxisData = AxisData.Builder()
                 .axisStepSize(100.dp)
@@ -132,7 +133,7 @@ fun StatisticsScreen(modifier: Modifier = Modifier){
                 .labelAndAxisLinePadding(20.dp)
                 .labelData { i ->
                     val yScale = (maxScore-minScore)/steps
-                    (i * yScale + minScore).toString()
+                    (i * yScale + minScore).formatToSinglePrecision()
                 }.build()
 
             val lineChartData = LineChartData(
