@@ -51,6 +51,7 @@ import com.example.allears.models.StatsVM
 
 @Composable
 fun StatisticsScreen(modifier: Modifier = Modifier){
+    var numWorstShown = 0
     val config = LocalConfiguration.current
     val VM : StatsVM = StatsVM.getInstance()
     val quizList by VM.quizzes.collectAsState()
@@ -193,17 +194,22 @@ fun StatisticsScreen(modifier: Modifier = Modifier){
         else if(points.size == 1){
             Text("Your Only Quiz: ${points[0].y}")
         }
+
         if(modeMissedQList.isNotEmpty()) {
             val correctAnswers = modeMissedQList.map{
                 it.correctAnswer
             }
             val eMap:Map<String, Int> = emptyMap()
-            val answerMap = correctAnswers.fold(eMap) {map:Map<String,Int>, nextEntry ->
+            var answerMap = correctAnswers.fold(eMap) {map:Map<String,Int>, nextEntry ->
                 map.plus(Pair(nextEntry, map.getOrDefault(nextEntry, 0) + 1))
             }
-            val worstQuestion = answerMap.maxBy {(timesOccur, _)-> timesOccur}
-            Row(modifier = modifier.fillMaxWidth()) {
-                Text("Worst Question: ${worstQuestion.key}")
+            numWorstShown = answerMap.size.coerceAtMost(3)
+            for(i in 0 until numWorstShown){
+                val toAdd = ((answerMap.maxBy {(timesOccur, _) ->  timesOccur}).key)
+                Row(modifier = modifier.fillMaxWidth()) {
+                    Text("#${i+1} Worst Question: $toAdd")
+                }
+                answerMap = answerMap.minus(toAdd)
             }
         }
     }
