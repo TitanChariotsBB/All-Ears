@@ -30,10 +30,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.allears.R
+import com.example.allears.data.MissedQ
 import com.example.allears.models.SolfegeVM
+import com.example.allears.models.StatsVM
 
 @Composable
 fun SolfegeScreen(VM: SolfegeVM, context: Context, modifier: Modifier = Modifier) {
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -83,7 +86,6 @@ fun SolfegeScreen(VM: SolfegeVM, context: Context, modifier: Modifier = Modifier
 fun AnswerButton(text: String, onClick: ()->Boolean, isRevealed: ()->Boolean, context: Context, enabled: Boolean = true, modifier: Modifier = Modifier) {
     val defaultColor = MaterialTheme.colorScheme.onSurfaceVariant
     val wrongAnsColor = MaterialTheme.colorScheme.error
-
     var isCorrectAnswer: Boolean
     var showDialog by rememberSaveable {
         mutableStateOf(false)

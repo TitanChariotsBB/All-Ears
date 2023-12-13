@@ -13,3 +13,11 @@ data class Quiz(
     var date: String = ""
 
 )
+
+@Entity(tableName = "MissedQ")
+data class MissedQ(
+    @PrimaryKey
+    var missed_q_id:Int = 1,
+    var mode:String = "",
+    var correctAnswer:String = ""
+)

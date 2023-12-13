@@ -45,6 +45,7 @@ import co.yml.charts.ui.linechart.model.SelectionHighlightPoint
 import co.yml.charts.ui.linechart.model.SelectionHighlightPopUp
 import co.yml.charts.ui.linechart.model.ShadowUnderLine
 import com.example.allears.R
+import com.example.allears.data.MissedQ
 import com.example.allears.data.Quiz
 import com.example.allears.models.StatsVM
 
@@ -53,13 +54,19 @@ fun StatisticsScreen(modifier: Modifier = Modifier){
     val config = LocalConfiguration.current
     val VM : StatsVM = StatsVM.getInstance()
     val quizList by VM.quizzes.collectAsState()
+    val missedQList by VM.missedQs.collectAsState()
     var requiredMode by remember{mutableStateOf("All")}
     val modeList: List<Quiz>
+    val modeMissedQList: List<MissedQ>
     if(requiredMode == "All"){
         modeList = quizList
+        modeMissedQList = missedQList
     }
     else {
         modeList = quizList.filter {
+            it.mode == requiredMode
+        }
+        modeMissedQList = missedQList.filter{
             it.mode == requiredMode
         }
     }
@@ -120,7 +127,7 @@ fun StatisticsScreen(modifier: Modifier = Modifier){
 //            }
 //
 //        }
-        if(points.isNotEmpty()) {
+        if(points.size > 1) {
             var maxScore = 0F
             var minScore = 100F
             for(point in points){
@@ -183,8 +190,21 @@ fun StatisticsScreen(modifier: Modifier = Modifier){
                 lineChartData = lineChartData
             )
         }
-        Row(modifier = modifier.fillMaxWidth()){
-
+        else if(points.size == 1){
+            Text("Your Only Quiz: ${points[0].y}")
+        }
+        if(modeMissedQList.isNotEmpty()) {
+            val correctAnswers = modeMissedQList.map{
+                it.correctAnswer
+            }
+            val eMap:Map<String, Int> = emptyMap()
+            val answerMap = correctAnswers.fold(eMap) {map:Map<String,Int>, nextEntry ->
+                map.plus(Pair(nextEntry, map.getOrDefault(nextEntry, 0) + 1))
+            }
+            val worstQuestion = answerMap.maxBy {(timesOccur, _)-> timesOccur}
+            Row(modifier = modifier.fillMaxWidth()) {
+                Text("Worst Question: ${worstQuestion.key}")
+            }
         }
     }
 }

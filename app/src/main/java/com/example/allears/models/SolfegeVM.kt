@@ -4,6 +4,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.example.allears.data.MissedQ
 import java.lang.Math.round
 
 class SolfegeVM: ViewModel() {
@@ -14,7 +15,7 @@ class SolfegeVM: ViewModel() {
     var attemptedQuestions by mutableStateOf(mutableListOf<String>())
     var score by mutableStateOf(0)
     var correctAnswer by mutableStateOf("")
-
+    val StatsVM : StatsVM = com.example.allears.models.StatsVM.getInstance()
     var solfegeEnabled by mutableStateOf(mutableMapOf<String, Boolean>())
 
     init {
@@ -52,6 +53,10 @@ class SolfegeVM: ViewModel() {
             startNewRound()
             return true
         } else {
+            if(numAttemptsAtCurrentQuestion == 0){
+                StatsVM.addMissedQ(MissedQ(StatsVM.highestMissedQIdNumber,
+                    "Solfege", correctAnswer))
+            }
             numAttemptsAtCurrentQuestion++
             attemptedQuestions.add(solfege)
             return false

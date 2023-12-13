@@ -4,11 +4,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.example.allears.data.MissedQ
 import java.lang.Math.round
 
 class ChordVM: ViewModel() {
     val listOfChords = listOf<String>("maj", "min", "dim", "aug")
-
+    val StatsVM : StatsVM = com.example.allears.models.StatsVM.getInstance()
     var numRoundsCompleted by mutableStateOf(0)
     var numAttemptsAtCurrentQuestion by mutableStateOf(0)
     var attemptedQuestions by mutableStateOf(mutableListOf<String>())
@@ -58,6 +59,12 @@ class ChordVM: ViewModel() {
             startNewRound()
             return true
         } else {
+            if(numAttemptsAtCurrentQuestion == 0){
+                StatsVM.addMissedQ(
+                    MissedQ(StatsVM.highestMissedQIdNumber,
+                        "Chord", correctAnswer)
+                )
+            }
             numAttemptsAtCurrentQuestion++
             attemptedQuestions.add(chord)
             return false
