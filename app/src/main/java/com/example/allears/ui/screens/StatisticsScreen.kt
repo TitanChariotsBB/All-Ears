@@ -74,7 +74,6 @@ fun StatisticsScreen(modifier: Modifier = Modifier){
     val steps = 10
     val points: List<Point> = VM.listQuizzesAsPoints(modeList)
     val screenWidth = (config.screenWidthDp - 64).dp.value
-
     Column(modifier = modifier
         .fillMaxSize()
         .padding(vertical = 64.dp, horizontal = 32.dp),

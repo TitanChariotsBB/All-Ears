@@ -9,6 +9,7 @@ import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -18,6 +19,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -111,6 +113,33 @@ fun AllEarsApp(context: Context, modifier: Modifier = Modifier) {
                 goToSettings = { navController.navigate(findSettingsRoute(currentScreenHandler?.destination?.route)) },
                 canShowAbout = canShowAbout(currentScreenHandler?.destination?.route),
                 goToAbout = { navController.navigate(Screens.About.route) }
+            )
+        },
+        bottomBar = {
+            AllEarsBottomBar(
+                goToHome = {navController.navigate(Screens.Home.route)},
+                goToSolfege = {
+                    navController.navigate(Screens.Solfege.route) },
+                goToInterval = {navController.navigate(Screens.Interval.route)},
+                goToChord = {navController.navigate(Screens.Chord.route)},
+                goToStats = {navController.navigate(Screens.Statistics.route)},
+                doExityStuff = {
+                    if(currentScreenHandler?.destination?.route == "solfege_screen"){
+                        addDatabaseEntry(VM.highestIdNumber + 1, "Solfege", solfegeVM.score,
+                            solfegeVM.numRoundsCompleted)
+                        solfegeVM.onLeaveQuiz()
+                    }
+                    else if(currentScreenHandler?.destination?.route == "interval_screen"){
+                        addDatabaseEntry(VM.highestIdNumber + 1, "Interval", intervalVM.score,
+                            intervalVM.numRoundsCompleted)
+                        intervalVM.onLeaveQuiz()
+                    }
+                    else if(currentScreenHandler?.destination?.route == "chord_screen"){
+                        addDatabaseEntry(VM.highestIdNumber + 1, "Chord", chordVM.score,
+                            chordVM.numRoundsCompleted)
+                        chordVM.onLeaveQuiz()
+                    }
+                }
             )
         }
     ) { paddingValues ->
@@ -231,4 +260,50 @@ fun AllEarsTopBar(
             }
         }
     )
+}
+
+@Composable
+fun AllEarsBottomBar(
+    goToHome: ()->Unit,
+    goToSolfege: ()->Unit,
+    goToInterval: ()->Unit,
+    goToChord: ()->Unit,
+    goToStats: ()->Unit,
+    doExityStuff: ()->Unit
+){
+    BottomAppBar(
+        containerColor = MaterialTheme.colorScheme.surface,
+        contentColor = MaterialTheme.colorScheme.onSurface,
+    ){
+        TextButton(onClick = {
+            goToSolfege()
+            doExityStuff()
+        }){
+            Text("Solfege")
+        }
+        TextButton(onClick = {
+            goToInterval()
+            doExityStuff()
+        }){
+            Text("Interval")
+        }
+        TextButton(onClick = {
+            goToChord()
+            doExityStuff()
+        }){
+            Text("Chord")
+        }
+        TextButton(onClick = {
+            goToStats()
+            doExityStuff()
+        }){
+            Text("Stats")
+        }
+        TextButton(onClick = {
+            goToHome()
+            doExityStuff()
+        }){
+            Text("Home")
+        }
+    }
 }
