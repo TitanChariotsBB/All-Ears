@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 
 @Database(
     entities =[Quiz::class, MissedQ::class],
-    version=3
+    version=4
 )
 abstract class QuizDatabase: RoomDatabase(){
     abstract val quizDao:QuizDao

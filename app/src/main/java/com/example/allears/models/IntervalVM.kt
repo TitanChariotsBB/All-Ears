@@ -79,4 +79,10 @@ class IntervalVM: ViewModel() {
     fun revealWrongAnswer(name: String): Boolean {
         return (attemptedQuestions.contains(name))
     }
+
+    fun onLeaveQuiz(){
+        numRoundsCompleted = 0
+        numAttemptsAtCurrentQuestion = 0
+        score = 0
+    }
 }

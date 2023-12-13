@@ -80,25 +80,29 @@ fun AllEarsApp(context: Context, modifier: Modifier = Modifier) {
     val solfegeVM: SolfegeVM = viewModel()
     val intervalVM: IntervalVM = viewModel()
     val chordVM: ChordVM = viewModel()
-
+    val VM : StatsVM = StatsVM.getInstance()
+    VM.updateIDNumber()
+    VM.updateMissedQIDNumber()
     Scaffold(
         topBar = {
             AllEarsTopBar(
                 canNavigateBack = canGoBack(currentScreenHandler?.destination?.route),
                 navigateBack = {
-                    val VM : StatsVM = StatsVM.getInstance()
                     VM.updateIDNumber()
                     if(currentScreenHandler?.destination?.route == "solfege_screen"){
                         addDatabaseEntry(VM.highestIdNumber + 1, "Solfege", solfegeVM.score,
                             solfegeVM.numRoundsCompleted)
+                        solfegeVM.onLeaveQuiz()
                     }
                     else if(currentScreenHandler?.destination?.route == "interval_screen"){
                         addDatabaseEntry(VM.highestIdNumber + 1, "Interval", intervalVM.score,
                             intervalVM.numRoundsCompleted)
+                        intervalVM.onLeaveQuiz()
                     }
                     else if(currentScreenHandler?.destination?.route == "chord_screen"){
                         addDatabaseEntry(VM.highestIdNumber + 1, "Chord", chordVM.score,
                             chordVM.numRoundsCompleted)
+                        chordVM.onLeaveQuiz()
                     }
                     navController.navigateUp()
                                },

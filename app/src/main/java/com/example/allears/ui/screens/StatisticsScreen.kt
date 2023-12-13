@@ -205,7 +205,7 @@ fun StatisticsScreen(modifier: Modifier = Modifier){
             }
             numWorstShown = answerMap.size.coerceAtMost(3)
             for(i in 0 until numWorstShown){
-                val toAdd = ((answerMap.maxBy {(timesOccur, _) ->  timesOccur}).key)
+                val toAdd = ((answerMap.maxBy {it.value}).key)
                 Row(modifier = modifier.fillMaxWidth()) {
                     Text("#${i+1} Worst Question: $toAdd")
                 }
