@@ -2,6 +2,10 @@
 
 Android ear-training app.
 
+## Background
+
+This app was created as the final project for COMP 402 (Principles of Android Programming) at Grove City College.
+
 ## Checklist
 
 ### Kotlin (Choose 2) (10 pts)
