@@ -12,6 +12,8 @@ I've removed some features from the project submission as they were only added t
 
 ![Home screen](screenshots/HomeLight.png) ![Dark home screen](screenshots/HomeDark.png)
 
+<img src="screenshots/HomeLight.png" alt="Home screen" width="200" />
+
 ![Sofege mode](screenshots/SolfegeCorrect.png) ![Solfege mode](screenshots/SolfegeIncorrect.png)
 
 ![Interval mode](screenshots/Interval.png) ![Interval settings](screenshots/IntervalSettings.png)
