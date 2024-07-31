@@ -10,12 +10,12 @@ I've removed some features from the project submission as they were only added t
 
 ### Screenshots
 
-![Home screen](screenshots/HomeLight.png) ![Dark home screen](screenshots/HomeDark.png)
+<img src="screenshots/HomeLight.png" alt="Home screen" width="300" />
+<img src="screenshots/HomeDark.png" alt="Dark ome screen" width="300" />
+<img src="screenshots/SolfegeCorrect.png" alt="Solfege mode" width="300" />
+<img src="screenshots/SolfegeIncorrect.png" alt="Solfege mode" width="300" />
 
-<img src="screenshots/HomeLight.png" alt="Home screen" width="200" />
-
-![Sofege mode](screenshots/SolfegeCorrect.png) ![Solfege mode](screenshots/SolfegeIncorrect.png)
-
-![Interval mode](screenshots/Interval.png) ![Interval settings](screenshots/IntervalSettings.png)
-
-![Dark mode](screenshots/SolfegeDark.png) ![Dark settings](screenshots/SettingsDark.png)
+<img src="screenshots/Interval.png" alt="Interval mode" width="300" />
+<img src="screenshots/IntervalSettings.png" alt="Interval settings" width="300" />
+<img src="screenshots/SolfegeDark.png" alt="Dark mode" width="300" />
+<img src="screenshots/SettingsDark.png" alt="Dark settings" width="300" />
